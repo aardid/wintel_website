@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What We Do — Forecasting, Escalation Probability &amp; Projections | Wildfire Intelligence</title>
+    <meta name="description" content="Sub-hourly wildfire potential forecasting, escalation probability by fire size, 5 km climate-change projections of fire growth, and cost–loss evaluation of what a forecast is worth.">
+    <meta name="keywords" content="wildfire potential forecasting, fire escalation probability, fire size thresholds, delta-ALE transfer learning, CMIP6 wildfire projection, cost-loss forecast value">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="What We Do — Forecasting, Escalation Probability &amp; Projections">
+    <meta property="og:description" content="Sub-hourly wildfire potential forecasting, escalation probability by fire size, climate projections, and cost–loss evaluation of forecast value.">
+    <meta property="og:url" content="https://www.wildfireintelligence.co.nz/what-we-do.html">
+    <meta property="og:site_name" content="Wildfire Intelligence">
+
+    <link rel="canonical" href="https://www.wildfireintelligence.co.nz/what-we-do.html">
+    <link rel="icon" href="img/favicon-32.png?v=20260804-1512" sizes="32x32" type="image/png">
+    <link rel="apple-touch-icon" href="img/favicon-180.png?v=20260804-1512">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="css/style.css?v=20260804-1512">
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to main content</a>
+
+<header class="site-header">
+    <nav class="container nav-inner" aria-label="Main navigation">
+        <a href="index.html" class="logo" aria-label="Wintel - Wildfire Intelligence home">
+            <img class="logo-lockup" src="img/logo-lockup.png?v=20260804-1512" alt="Wintel - Wildfire Intelligence" width="1265" height="512">
+        </a>
+        <button class="mobile-toggle" aria-label="Toggle menu" aria-expanded="false">
+            <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="what-we-do.html" class="active">What We Do</a></li>
+            <li><a href="solutions.html">Solutions</a></li>
+            <li><a href="case-studies.html">Case Studies</a></li>
+            <li><a href="about.html">About</a></li>
+            <li class="nav-cta"><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main id="main">
+
+    <!-- Page header laid out like the homepage hero: copy left, visual right.
+         Here the visual is the animated fire-potential surface. -->
+    <section class="page-header page-header-split">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="page-header-content">
+                    <span class="section-label">Our Services</span>
+                    <h1>What We Do</h1>
+                    <p>Wildfires are getting harder to predict and more expensive to fight. We build analytical tools that close the gap between raw environmental data and the decisions that matter.</p>
+                </div>
+                <div class="hero-visual" aria-hidden="true">
+                    <div class="hero-graphic">
+                        <canvas id="hero-field" class="hero-canvas" aria-hidden="true"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICE 1 -->
+    <section class="section">
+        <div class="container">
+            <div class="service-block">
+                <div class="service-content">
+                    <span class="section-label">Forecasting</span>
+                    <h2>Real-Time Fire Potential Forecasting</h2>
+                    <p>Operational fire danger is typically issued once a day, while the fire environment changes hour to hour. Our machine learning models read live automatic weather station feeds and output fire potential at sub-hourly intervals, closing that gap.</p>
+                    <ul class="service-features">
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span><strong>Continuous fire potential</strong> updated sub-hourly, not once a day</span>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span><strong>Transfer learning across regions</strong>, so a model trained where records are rich can be carried to where they are not</span>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span><strong>Skill assessed against operational practice</strong>, benchmarked on fire-behaviour-index baselines rather than in isolation</span>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span><strong>Multi-channel delivery</strong> via API, dashboard, SMS, or email alerts</span>
+                        </li>
+                    </ul>
+                    <a href="case-studies.html#australia-forecasting" class="btn btn-ghost">
+                        See the case study
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </a>
+                </div>
+                <div class="service-visual">
+                    <div class="service-visual-content">
+                        <div class="service-visual-icon">
+                            <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                        </div>
+                        <div class="service-visual-label">Sub-hourly fire potential scores<br>from live weather feeds</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICE 2 -->
+    <section class="section section-alt">
+        <div class="container">
+            <div class="service-block reverse">
+                <div class="service-content">
+                    <span class="section-label">Escalation</span>
+                    <h2>What Makes a Fire Escalate</h2>
+                    <p>We model the probability that a fire crosses successive size thresholds given ignition, and quantify which part of the fire-environment triangle &mdash; fuels, topography, weather &mdash; carries the signal at each scale. Across 116,771 New Zealand records, that weighting shifts systematically with fire size.</p>
+                    <ul class="service-features">
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span><strong>Escalation probability</strong> at 0.1, 1, 10, and 100 ha, spanning three orders of magnitude</span>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span><strong>Landscape constrains early growth</strong> &mdash; fuels and topography dominate up to 10 ha, while atmospheric forcing becomes comparable at 100 ha</span>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span><strong>Scale-dependent terrain control</strong>, shifting from slope at small sizes to elevation at the largest threshold</span>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span><strong>Auditable importance</strong> via feature-dropout testing, so every driver ranking can be checked rather than trusted</span>
+                        </li>
+                    </ul>
+                    <a href="case-studies.html#nz-growth-controls" class="btn btn-ghost">
+                        See the case study
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </a>
+                </div>
+                <div class="service-visual">
+                    <div class="service-visual-content">
+                        <div class="service-visual-icon">
+                            <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                        </div>
+                        <div class="service-visual-label">Data-driven fire-environment<br>classification</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICE 3 -->
+    <section class="section">
+        <div class="container">
+            <div class="service-block">
+                <div class="service-content">
+                    <span class="section-label">Projections</span>
+                    <h2>Fire Growth Under Climate Change</h2>
+                    <p>We carry a trained fire model onto gridded climate projections using delta-ALE spatial transfer learning. Each 5 km cell is anchored to its own historical baseline, so the projected change reflects local conditions rather than a national average.</p>
+                    <ul class="service-features">
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span><strong>National 5 km projections</strong> across CMIP6 scenarios, from SSP1-2.6 to SSP5-8.5</span>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span><strong>Driver attribution</strong> showing which climate variable produces the projected change, and where</span>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span><strong>Seasonal shift</strong> quantified &mdash; spring fire-growth probability rising toward present-day summer levels</span>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span><strong>Stated limits</strong> &mdash; bootstrap confidence intervals and an applicability check reported alongside every projection</span>
+                        </li>
+                    </ul>
+                    <a href="case-studies.html#nz-climate-projection" class="btn btn-ghost">
+                        See the case study
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </a>
+                </div>
+                <div class="service-visual">
+                    <div class="service-visual-content">
+                        <div class="service-visual-icon">
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                        </div>
+                        <div class="service-visual-label">5 km fire-growth probability<br>under CMIP6 scenarios</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICE 4 -->
+    <section class="section section-alt">
+        <div class="container">
+            <div class="service-block reverse">
+                <div class="service-content">
+                    <span class="section-label">Decision Value</span>
+                    <h2>Forecast Skill, Priced</h2>
+                    <p>A more skilful forecast only matters if acting on it beats acting without it. We evaluate forecasts in a cost&ndash;loss framework and report potential economic value, so you can see at which warning threshold the forecast pays for the organisation using it.</p>
+                    <ul class="service-features">
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span><strong>Cost&ndash;loss analysis</strong> tied to your own pre-positioning and suppression costs</span>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span><strong>Potential economic value</strong> mapped across the full range of warning thresholds, not just one operating point</span>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span><strong>Current practice as the baseline</strong>, so the comparison is against what you do today</span>
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span><strong>An adoption decision</strong>, not just a metric &mdash; where the forecast earns its place in the workflow</span>
+                        </li>
+                    </ul>
+                    <a href="case-studies.html#australia-forecasting" class="btn btn-ghost">
+                        See it applied in Australia
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                    </a>
+                </div>
+                <div class="service-visual">
+                    <div class="service-visual-content">
+                        <div class="service-visual-icon">
+                            <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        </div>
+                        <div class="service-visual-label">Cost&ndash;loss and potential<br>economic value analysis</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW WE DELIVER -->
+    <section class="section section-dark">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">How We Deliver</span>
+                <h2>Intelligence where your team already works</h2>
+                <p>A forecast only matters if it reaches the person making the call. We deliver through the channels your operation already runs on.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-card-icon"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+                    <h3>API</h3>
+                    <p>Machine-readable fire potential, risk, and classification outputs your systems can consume directly.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-card-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+                    <h3>Dashboards</h3>
+                    <p>Interactive map and time-series views built for situational awareness during an event, not just after it.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-card-icon"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+                    <h3>Alerts</h3>
+                    <p>Threshold-based SMS and email notifications so escalating conditions reach duty staff without anyone watching a screen.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-card-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg></div>
+                    <h3>Reports &amp; Analysis</h3>
+                    <p>Reproducible seasonal reviews, technical documentation, and publication-ready analysis for strategy and reporting.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-banner">
+        <div class="container">
+            <h2>Want to see what this looks like for your organisation?</h2>
+            <p>We tailor our tools to your data, your region, and your operational context.</p>
+            <a href="contact.html" class="btn btn-primary">Request a demo or pilot conversation</a>
+        </div>
+    </section>
+
+</main>
+
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <a href="index.html" class="logo" aria-label="Wintel - Wildfire Intelligence home">
+                    <img class="logo-lockup" src="img/logo-lockup-reverse.png?v=20260804-1512" alt="Wintel - Wildfire Intelligence" width="1265" height="512">
+                </a>
+                <p>AI-powered wildfire forecasting and analytics. Helping agencies, land managers, and researchers make faster, evidence-based fire decisions.</p>
+            </div>
+            <div>
+                <div class="footer-heading">Services</div>
+                <ul class="footer-links">
+                    <li><a href="what-we-do.html">What We Do</a></li>
+                    <li><a href="solutions.html">Solutions</a></li>
+                    <li><a href="case-studies.html">Case Studies</a></li>
+                </ul>
+            </div>
+            <div>
+                <div class="footer-heading">Company</div>
+                <ul class="footer-links">
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <div class="footer-heading">Contact</div>
+                <ul class="footer-links">
+                    <li><a href="mailto:alberto@wildfireintelligence.co.nz">Email Us</a></li>
+                    <li><a href="tel:+64275954776">+64 27 595 4776</a></li>
+                    <li>Christchurch, New Zealand</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>&copy; 2026 Wildfire Intelligence Ltd. All rights reserved.</span>
+            <a href="mailto:alberto@wildfireintelligence.co.nz">alberto@wildfireintelligence.co.nz</a>
+        </div>
+    </div>
+</footer>
+
+<script src="js/main.js?v=20260804-1512" defer></script>
+</body>
+</html>

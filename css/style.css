@@ -1,0 +1,841 @@
+/* ============================================================
+   WILDFIRE INTELLIGENCE — Design System
+   Indigo-navy dark: navy surfaces, cool ash type, sky data, fire action.
+
+   HOW THIS FILE IS ORGANISED
+   1. PALETTE        raw hues. Never referenced by components directly.
+   2. TOKENS         semantic roles (--bg-*, --text-*, --tint-*, --on-band-*).
+                     Components reference ONLY these — so re-theming the whole
+                     site means editing this block and nothing else.
+   3. RETIRED THEMES previous token sets, kept commented for a one-paste restore.
+   4. COMPONENTS
+
+   COLOUR DISCIPLINE, in order of loudness:
+     action (fire orange) — CTAs, stat numbers, hero-badge dot, CTA band,
+                            hot end of any scale. Nothing else, ever.
+     data (sky)           — links, section labels, icons, check marks,
+                            citation links, the cool end of any scale.
+     structure (periwinkle) — hairlines, tinted panels, partner glyphs.
+   In this theme sky carries both the "link" and "verify" roles; the tokens
+   stay separate so a future theme can split them again (the plum theme did,
+   with violet for structure and cyan for verification).
+
+   BANDS: .section-dark, .cta-banner and .site-footer are darker slabs that
+   punctuate the page — its rhythm. Their contents use --on-band-* tokens, so
+   anything nested inside a band must use those rather than --text-*.
+
+   Pure static HTML/CSS/JS — no build step, no framework.
+   ============================================================ */
+
+/* ---------- 1. PALETTE ---------- */
+:root {
+    /* Fire */
+    --fire-700: #9a3412; --fire-600: #ea580c; --fire-500: #f97316;
+    --fire-400: #fb923c; --fire-300: #fdba74; --ember-200: #fed7aa;
+    /* Sky — data */
+    --sky-700: #0369a1; --sky-600: #0284c7; --sky-500: #0ea5e9;
+    --sky-400: #38bdf8; --sky-300: #7dd3fc; --sky-200: #bae6fd;
+    /* Periwinkle — structure */
+    --iris-600: #4f46e5; --iris-500: #6366f1; --iris-400: #818cf8;
+    --iris-300: #a5b4fc;
+    /* Indigo-navy surfaces */
+    --navy-950: #070b16; --navy-900: #0b1020; --navy-850: #131a2e;
+    --navy-800: #1c2540; --navy-700: #2a3556;
+    /* Cool ash neutrals */
+    --ash-600: #4b5675; --ash-500: #6b7796; --ash-400: #a8b3cc;
+    --ash-300: #cbd3e6; --ash-200: #e2e8f5; --ash-100: #f1f4fb;
+
+    --white: #ffffff;
+
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --radius: 8px;
+    --radius-lg: 12px;
+    --max-width: 1120px;
+}
+
+/* ---------- 2. TOKENS (indigo-navy dark) ---------- */
+:root {
+    /* backgrounds */
+    --bg-page:        var(--navy-950);
+    /* Light header bar. This is also what lets the logo keep its ORIGINAL
+       colours on a transparent background — its type is near-black navy and
+       needs a light surface behind it, so header colours are their own tokens. */
+    --bg-header:      rgba(244,242,237,.97);
+    --header-line:    rgba(26,19,48,.16);
+    --header-text:    #2b3550;
+    --header-strong:  #0f1b33;
+    --header-tint:    rgba(2,132,199,.14);
+    --bg-hero:        rgba(7,11,22,.42);
+    --bg-page-header: rgba(7,11,22,.55);
+    --bg-alt:         rgba(19,26,46,.52);
+    --bg-rail:        rgba(7,11,22,.46);
+    --surface:        rgba(19,26,46,.74);
+    --surface-2:      rgba(11,16,32,.62);
+    --field-bg:       rgba(7,11,22,.6);
+    --field-line:     rgba(168,179,204,.26);
+    --mobile-nav-bg:  rgba(7,11,22,.97);
+
+    /* glow fields behind everything */
+    --glow-cool: rgba(56,189,248,.15);
+    --glow-mid:  rgba(129,140,248,.18);
+    --glow-warm: rgba(234,88,12,.14);
+    --veil: linear-gradient(158deg, rgba(7,11,22,.56), rgba(11,16,32,.30) 46%, rgba(7,11,22,.74));
+
+    /* lines and shadows — on dark, hairlines do the work elevation does on light */
+    --line:        rgba(129,140,248,.20);
+    --line-soft:   rgba(129,140,248,.12);
+    --shadow-rest: none;
+    --shadow-card: 0 12px 30px rgba(0,0,0,.32);
+    --logo-plate:  rgba(247,245,240,.97);  /* light plate behind the full-colour lockup */
+
+    /* type */
+    --heading:          var(--white);
+    --text-body:        var(--ash-300);
+    --text-strong:      var(--ash-100);
+    --text-lead:        var(--ash-200);
+    --text-muted:       var(--ash-400);
+    --text-faint:       var(--ash-500);
+    --text-placeholder: var(--ash-600);
+
+    /* accents */
+    --action:       var(--fire-600);
+    --action-hover: #c2410c;
+    --action-hot:   var(--fire-500);
+    --link:         var(--sky-400);
+    --link-hover:   var(--sky-200);
+    --label:        var(--sky-400);
+    --icon:         var(--sky-400);
+    --icon-strong:  var(--sky-300);
+    --verify:       var(--sky-400);
+    --verify-text:  var(--sky-400);
+    --badge-text:   var(--sky-200);
+    /* --logo-sub / --logo-glow are only needed if the header ever reverts to
+       "emblem image + live text"; the full-lockup version uses --logo-plate. */
+
+    /* tints */
+    --tint-nav:          rgba(56,189,248,.16);
+    --tint-icon:         rgba(56,189,248,.14);
+    --tint-badge:        rgba(56,189,248,.18);
+    --tint-panel:        rgba(99,102,241,.12);
+    --tint-panel-hover:  rgba(99,102,241,.18);
+    --tint-case-head:    rgba(99,102,241,.09);
+    --tint-visual:       rgba(99,102,241,.20);
+    --tint-ring:         rgba(56,189,248,.18);
+    --border-hover:      rgba(56,189,248,.45);
+
+    /* secondary button */
+    --btn2-bg:       rgba(255,255,255,.1);
+    --btn2-bg-hover: rgba(56,189,248,.16);
+    --btn2-text:     var(--white);
+    --btn2-line:     rgba(203,211,230,.28);
+
+    /* darker bands that punctuate the page */
+    --band-bg:         rgba(7,11,22,.6);
+    --cta-bg:          rgba(7,11,22,.7);
+    --footer-bg:       rgba(7,11,22,.86);
+    --band-inset:      rgba(255,255,255,.06);
+    --band-line:       rgba(255,255,255,.14);
+    --on-band-heading: var(--white);
+    --on-band-text:    var(--ash-200);
+    --on-band-muted:   var(--ash-400);
+    --on-band-label:   var(--sky-300);
+    --on-band-badge:   rgba(56,189,248,.18);
+}
+
+/* ---------- 3. RETIRED THEMES (one-paste restore) ----------------------------
+   Each set replaces the token block above. The component section never needs
+   editing. js/main.js carries a matching mesh ramp per theme — set its `THEME`
+   constant to 'navy' (active), 'plum' or 'bone'. That is not cosmetic: a ramp
+   tuned for a dark page goes invisible on paper, so the bone ramp inverts which
+   end of the scale carries the ink and raises the alpha floor.
+
+   --- A. BONE LIGHT (paper, ink-violet type, dark plum bands; THEME='bone') ---
+   Palette additions needed: --ink-900:#1a1330; --ink-800:#332b4a; --ink-600:#5c5375;
+   --ink-400:#8a819e; --bone:#f7f5f0; plus the violet/cyan/plum ramps from B.
+    --bg-page: var(--bone);                --bg-header: rgba(247,245,240,.92);
+    --bg-hero: transparent;                --bg-page-header: rgba(255,255,255,.55);
+    --bg-alt: rgba(255,255,255,.62);       --bg-rail: rgba(255,255,255,.55);
+    --surface: rgba(255,255,255,.92);      --surface-2: rgba(255,255,255,.76);
+    --field-bg: var(--white);              --field-line: rgba(26,19,48,.22);
+    --mobile-nav-bg: rgba(247,245,240,.98);
+    --glow-cool: rgba(8,145,178,.10);      --glow-mid: rgba(124,58,237,.11);
+    --glow-warm: rgba(234,88,12,.10);
+    --veil: linear-gradient(158deg, rgba(247,245,240,.5), rgba(255,255,255,.2) 46%, rgba(241,239,233,.6));
+    --line: rgba(76,29,149,.16);           --line-soft: rgba(76,29,149,.09);
+    --shadow-rest: 0 1px 2px rgba(45,25,80,.07);
+    --shadow-card: 0 10px 24px rgba(45,25,80,.13);
+    --logo-glow: drop-shadow(0 2px 8px rgba(120,40,10,.22));
+    --heading: #1a1330;   --text-body: #332b4a;   --text-strong: #1a1330;
+    --text-lead: #332b4a; --text-muted: #5c5375;  --text-faint: #8a819e;
+    --text-placeholder: #8a819e;
+    --action-hot: var(--fire-600);         --link: #7c3aed;  --link-hover: #5b21b6;
+    --label: #7c3aed;  --icon: #7c3aed;    --icon-strong: #7c3aed;
+    --verify: #0891b2; --verify-text: #0e7490; --badge-text: #5b21b6;
+    --logo-sub: #c2410c;
+    --tint-nav: rgba(124,58,237,.12);      --tint-icon: rgba(124,58,237,.14);
+    --tint-badge: rgba(124,58,237,.12);    --tint-panel: rgba(124,58,237,.09);
+    --tint-panel-hover: rgba(124,58,237,.14); --tint-case-head: rgba(124,58,237,.07);
+    --tint-visual: rgba(124,58,237,.20);   --tint-ring: rgba(124,58,237,.18);
+    --border-hover: rgba(124,58,237,.42);
+    --btn2-bg: var(--white); --btn2-bg-hover: #f1efe9;
+    --btn2-text: #1a1330;   --btn2-line: rgba(26,19,48,.2);
+    --band-bg: #140d24; --cta-bg: #140d24; --footer-bg: #140d24;
+   Also: the footer logo needs its own warm glow, since the page-level
+   --logo-glow is a dark shadow that vanishes on the band.
+
+   --- B. PLUM-VIOLET DARK (violet structure, cyan verification; THEME='plum') ---
+   Palette additions needed: --violet-800:#5b21b6 --violet-700:#6d28d9
+   --violet-600:#7c3aed --violet-500:#8b5cf6 --violet-400:#a78bfa
+   --violet-300:#c4b5fd --violet-200:#ddd6fe --cyan-700:#0e7490 --cyan-600:#0891b2
+   --cyan-400:#22d3ee --cyan-300:#67e8f9 --cyan-200:#a5f3fc --plum-950:#0d0918
+   --plum-900:#140d24 --plum-850:#1d1436 --plum-800:#291c4a, and violet-tinted ash
+   (#5b5175 #7d7296 #b6acce #d8d1e8 #ece6f7 #f6f3fb).
+    --bg-page: var(--plum-950);            --bg-header: rgba(13,9,24,.9);
+    --bg-hero: rgba(13,9,24,.42);          --bg-page-header: rgba(13,9,24,.55);
+    --bg-alt: rgba(29,20,54,.52);          --bg-rail: rgba(13,9,24,.46);
+    --surface: rgba(29,20,54,.74);         --surface-2: rgba(20,13,36,.62);
+    --field-bg: rgba(13,9,24,.6);          --field-line: rgba(182,172,206,.26);
+    --mobile-nav-bg: rgba(13,9,24,.97);
+    --glow-cool: rgba(34,211,238,.15);     --glow-mid: rgba(167,139,250,.24);
+    --glow-warm: rgba(234,88,12,.16);
+    --veil: linear-gradient(158deg, rgba(13,9,24,.56), rgba(20,13,36,.30) 46%, rgba(13,9,24,.74));
+    --line: rgba(167,139,250,.24);         --line-soft: rgba(167,139,250,.14);
+    --shadow-card: 0 12px 30px rgba(0,0,0,.34);
+    --logo-glow: drop-shadow(0 2px 12px rgba(249,115,22,.4));
+    --link: #a78bfa;  --link-hover: #ddd6fe;  --label: #a78bfa;
+    --icon: #a78bfa;  --icon-strong: #c4b5fd;
+    --verify: #22d3ee; --verify-text: #22d3ee; --badge-text: #ddd6fe;
+    --tint-nav: rgba(167,139,250,.18);     --tint-icon: rgba(139,92,246,.18);
+    --tint-badge: rgba(139,92,246,.22);    --tint-panel: rgba(124,58,237,.16);
+    --tint-panel-hover: rgba(124,58,237,.22); --tint-case-head: rgba(124,58,237,.14);
+    --tint-visual: rgba(139,92,246,.26);   --tint-ring: rgba(139,92,246,.22);
+    --border-hover: rgba(167,139,250,.5);
+    --btn2-bg-hover: rgba(167,139,250,.18); --btn2-line: rgba(216,209,232,.28);
+    --band-bg: rgba(13,9,24,.62);          --cta-bg: rgba(13,9,24,.72);
+    --footer-bg: rgba(13,9,24,.88);        --on-band-label: #67e8f9;
+    --on-band-badge: rgba(34,211,238,.18);
+
+   A dual auto light/dark build also worked: wrap the bone set in
+   @media (prefers-color-scheme: light) and pick the JS ramp from matchMedia.
+   ------------------------------------------------------------------------- */
+
+/* ---------- 4. COMPONENTS ---------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body {
+    font-family: var(--font-sans); color: var(--text-body);
+    line-height: 1.65; background: var(--bg-page);
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    position: relative;
+    isolation: isolate;
+}
+
+/* Backdrop — two cool fields plus one restrained ember glow, in place of
+   Cloudbreak's background photo. To use a photo later, add to body::before:
+       background-image: url("../img/bg.jpg");
+       background-size: cover; background-position: center;
+   and drop the opacity to ~.22.                                          */
+body::before {
+    content: "";
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background:
+        radial-gradient(ellipse 56% 46% at 84% 6%,   var(--glow-cool), transparent 62%),
+        radial-gradient(ellipse 60% 50% at 14% 12%,  var(--glow-mid),  transparent 64%),
+        radial-gradient(ellipse 74% 54% at 52% 104%, var(--glow-warm), transparent 66%);
+}
+body::after {
+    content: "";
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background: var(--veil);
+}
+body > * { position: relative; z-index: 1; }
+
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--link); text-decoration: none; transition: color .15s; }
+a:hover { color: var(--link-hover); }
+
+h1, h2, h3, h4 { color: var(--heading); line-height: 1.2; font-weight: 800; }
+h1 { font-size: clamp(2rem, 4.5vw, 3rem); letter-spacing: -.03em; }
+h2 { font-size: clamp(1.5rem, 3.5vw, 2.125rem); letter-spacing: -.02em; }
+h3 { font-size: 1.2rem; font-weight: 700; }
+h4 { font-size: 1.05rem; font-weight: 700; }
+
+.container { max-width: var(--max-width); margin: 0 auto; padding: 0 1.5rem; }
+
+/* Skip link */
+.skip-link {
+    position: absolute; top: -100%; left: 1rem;
+    background: var(--action); color: var(--white);
+    padding: .5rem 1rem; border-radius: var(--radius); z-index: 1000; font-weight: 600;
+}
+.skip-link:focus { top: 1rem; color: var(--white); }
+
+/* ===== HEADER ===== */
+.site-header {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--bg-header); border-bottom: 1px solid var(--header-line);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+}
+.nav-inner {
+    display: flex; align-items: center;
+    justify-content: space-between; height: 128px;
+}
+
+/* ---- LOGO ----------------------------------------------------------------
+   The complete artwork lockup (emblem + "Wintel" + tagline) in its ORIGINAL
+   colours, on a fully transparent background — no plate, no live text, no
+   recolouring.
+   KNOWN TRADE-OFF: the lockup's type and tree are near-black navy
+   (rgb 0,26,57) against a #070b16 page — about 1.1:1 contrast, so they read
+   very faintly. Only the orange and cyan elements carry. The fixes, in order
+   of fidelity to the artwork: (1) switch the page to the bone light theme
+   (part 3 of this file) so the original colours work natively; (2) use
+   img/logo-mark.png, the knockout emblem, and accept recoloured ink;
+   (3) put the plate back (--logo-plate is still defined for that).
+   ------------------------------------------------------------------------ */
+.logo {
+    display: inline-flex; align-items: center;
+    flex-shrink: 0; color: var(--heading);
+    background: none; padding: 0; border: none; box-shadow: none;
+}
+.logo:hover { color: var(--heading); }
+/* 1265x512 artwork (2.47:1) — height drives horizontal cost: 96px tall is ~237px
+   wide. The header keeps the ORIGINAL colours (light bar behind it); the footer
+   swaps in logo-lockup-reverse.png because it sits on a dark band. */
+.logo-lockup { height: 96px; width: auto; display: block; }
+.footer-brand .logo-lockup { height: 62px; }
+
+.nav-links { display: flex; align-items: center; gap: .4rem; list-style: none; }
+.nav-links a {
+    display: block; padding: .55rem 1rem;
+    color: var(--header-text); font-weight: 600; font-size: 1.02rem;
+    border-radius: 7px; transition: color .15s, background .15s;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--header-strong); background: var(--header-tint); }
+.nav-cta { margin-left: .4rem; }
+.nav-cta a {
+    background: var(--action) !important; color: var(--white) !important;
+    padding: .58rem 1.4rem !important; border-radius: 7px !important; font-weight: 700 !important;
+    transition: background .15s !important;
+}
+.nav-cta a:hover { background: var(--action-hover) !important; }
+
+.mobile-toggle {
+    display: none; background: none; border: none;
+    cursor: pointer; padding: .5rem; color: var(--header-text);
+}
+.mobile-toggle svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; }
+
+/* ===== BUTTONS ===== */
+.btn {
+    display: inline-flex; align-items: center; gap: .5rem;
+    padding: .7rem 1.6rem; font-size: .95rem; font-weight: 600;
+    border-radius: 6px; border: none; cursor: pointer;
+    transition: background .15s, transform .15s, border-color .15s, color .15s;
+    text-decoration: none;
+}
+.btn-primary { background: var(--action); color: var(--white); }
+.btn-primary:hover { background: var(--action-hover); color: var(--white); transform: translateY(-1px); }
+.btn-secondary { background: var(--btn2-bg); color: var(--btn2-text); border: 1.5px solid var(--btn2-line); }
+.btn-secondary:hover { background: var(--btn2-bg-hover); color: var(--btn2-text); border-color: var(--border-hover); }
+.btn-outline { background: var(--btn2-bg); color: var(--link); border: 1.5px solid var(--line); }
+.btn-outline:hover { background: var(--tint-nav); border-color: var(--border-hover); color: var(--link-hover); }
+.btn-ghost { background: transparent; color: var(--link); padding: .4rem 0; font-size: .9rem; }
+.btn-ghost:hover { color: var(--action); }
+.btn-ghost svg { width: 14px; height: 14px; transition: transform .15s; }
+.btn-ghost:hover svg { transform: translateX(3px); }
+
+/* ===== HERO ===== */
+.hero {
+    padding: 5.5rem 0 5rem;
+    background: var(--bg-hero); color: var(--heading);
+    position: relative; overflow: hidden;
+}
+.hero-grid {
+    display: grid; grid-template-columns: 1.12fr 1.38fr;
+    gap: 2.5rem; align-items: center;
+}
+.hero-content { position: relative; z-index: 1; }
+.hero-badge {
+    display: inline-flex; align-items: center; gap: .4rem;
+    color: var(--label); font-size: .78rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: .06em;
+    margin-bottom: 1.25rem;
+}
+.hero-badge-dot {
+    width: 6px; height: 6px; background: var(--action-hot);
+    border-radius: 50%; box-shadow: 0 0 0 3px rgba(249,115,22,.22);
+}
+.hero h1 { color: var(--heading); margin-bottom: 1rem; }
+.hero h1 .highlight { color: var(--verify-text); }
+.hero h1 .highlight-accent { color: var(--action-hot); }
+.hero-subtitle {
+    font-size: 1.1rem; color: var(--text-lead);
+    line-height: 1.75; margin-bottom: 2rem; max-width: 520px;
+}
+.hero-buttons { display: flex; gap: .75rem; flex-wrap: wrap; }
+
+/* Hero visual — animated topographic risk mesh (canvas).
+   Height maps to colour, violet/steel → cyan → amber → fire red.
+   The ramp is theme-aware and lives in js/main.js. */
+.hero-visual {
+    display: flex; justify-content: center; align-items: center;
+    position: relative;
+}
+.hero-graphic {
+    width: 100%; aspect-ratio: 16 / 9; position: relative;
+    -webkit-mask-image: radial-gradient(
+        ellipse 56% 55% at 50% 50%,
+        black 50%, rgba(0,0,0,.75) 64%, rgba(0,0,0,.35) 77%,
+        rgba(0,0,0,.08) 88%, transparent 97%);
+    mask-image: radial-gradient(
+        ellipse 56% 55% at 50% 50%,
+        black 50%, rgba(0,0,0,.75) 64%, rgba(0,0,0,.35) 77%,
+        rgba(0,0,0,.08) 88%, transparent 97%);
+}
+.hero-canvas { display: block; width: 100%; height: 100%; }
+
+/* Hero still image — the ember araucaria. Transparent PNG, so it reads directly
+   against the page gradient with no plate or backdrop. Held at 93% and with its
+   highlights rolled off in the asset itself, so it supports the headline rather
+   than pulling the eye off it. */
+.hero-image { width: 93%; height: auto; display: block; }
+
+/* ===== SPLIT PAGE HEADER =====
+   What We Do mirrors the homepage hero — copy left, visual right — except the
+   visual is the animated risk-surface canvas rather than a still. The canvas
+   keeps id="hero-field" because js/main.js binds to that id, and it sizes itself
+   from its parent's box, so .hero-graphic must keep an aspect-ratio.
+   There must be exactly one #hero-field in the site. */
+.page-header-split { padding: 3.25rem 0 3rem; }
+.page-header-split .hero-grid { align-items: center; }
+.page-header-split .page-header-content { max-width: 560px; }
+
+/* ===== SECTIONS ===== */
+.section { padding: 5rem 0; background: transparent; }
+.section-alt { background: var(--bg-alt); }
+.section-dark { background: var(--band-bg); }
+.section-header { text-align: center; max-width: 580px; margin: 0 auto 3rem; }
+.section-header p { color: var(--text-body); font-size: 1.05rem; margin-top: .5rem; }
+.section-label {
+    display: inline-block; font-size: .75rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .08em;
+    color: var(--label); margin-bottom: .5rem;
+}
+/* dark bands keep light-on-dark type in both themes */
+.section-dark h2, .section-dark h3 { color: var(--on-band-heading); }
+.section-dark .section-header p { color: var(--on-band-muted); }
+.section-dark .section-label { color: var(--on-band-label); }
+
+/* ===== SERVICE CARDS ===== */
+.services-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(248px, 1fr)); gap: 1.25rem;
+}
+.service-card {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 1.75rem; box-shadow: var(--shadow-rest);
+    transition: border-color .2s, box-shadow .2s, transform .2s;
+}
+.service-card:hover {
+    border-color: var(--border-hover);
+    box-shadow: var(--shadow-card);
+    transform: translateY(-2px);
+}
+.service-card-icon {
+    width: 44px; height: 44px; background: var(--tint-icon);
+    border-radius: var(--radius); display: flex;
+    align-items: center; justify-content: center; margin-bottom: 1rem;
+}
+.service-card-icon svg {
+    width: 22px; height: 22px; stroke: var(--icon);
+    fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+}
+.service-card h3 { margin-bottom: .5rem; }
+.service-card p { color: var(--text-body); font-size: .9rem; line-height: 1.7; }
+
+/* ===== SERVICE BLOCKS (What We Do) ===== */
+.service-block {
+    display: grid; grid-template-columns: 1.15fr .85fr;
+    gap: 3rem; align-items: center;
+}
+.service-block.reverse .service-content { order: 2; }
+.service-block.reverse .service-visual { order: 1; }
+.service-content h2 { margin-bottom: .75rem; }
+.service-content > p { color: var(--text-body); line-height: 1.75; margin-bottom: 1.25rem; }
+.service-features { list-style: none; margin-bottom: 1.5rem; }
+.service-features li {
+    display: flex; align-items: flex-start; gap: .6rem;
+    font-size: .92rem; color: var(--text-body); padding: .35rem 0; line-height: 1.65;
+}
+.service-features li svg {
+    width: 16px; height: 16px; stroke: var(--verify);
+    fill: none; stroke-width: 2.4; flex-shrink: 0; margin-top: 4px;
+}
+.service-features strong { color: var(--text-strong); font-weight: 600; }
+.service-visual {
+    border: 1px solid var(--line); border-radius: var(--radius-lg);
+    background:
+        radial-gradient(circle at 50% 42%, var(--tint-visual), transparent 68%),
+        var(--surface-2);
+    min-height: 240px; display: flex; align-items: center; justify-content: center;
+    padding: 2rem;
+}
+.service-visual-content { text-align: center; }
+.service-visual-icon {
+    width: 64px; height: 64px; margin: 0 auto 1rem;
+    border-radius: 50%; background: var(--tint-icon);
+    border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+}
+.service-visual-icon svg {
+    width: 30px; height: 30px; fill: none; stroke: var(--icon-strong);
+    stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
+}
+.service-visual-label { font-size: .85rem; color: var(--text-muted); line-height: 1.7; }
+
+/* ===== SOLUTION CARDS ===== */
+.solutions-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem;
+}
+.solution-card {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--radius-lg); padding: 2rem; box-shadow: var(--shadow-rest);
+    transition: border-color .2s, box-shadow .2s, transform .2s;
+}
+.solution-card:hover {
+    border-color: var(--border-hover);
+    box-shadow: var(--shadow-card);
+    transform: translateY(-2px);
+}
+.solution-card-badge {
+    display: inline-block; font-size: .7rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .06em;
+    color: var(--badge-text); background: var(--tint-badge);
+    padding: .2rem .6rem; border-radius: 4px; margin-bottom: .75rem;
+}
+.solution-card h3 { margin-bottom: .5rem; }
+.solution-card p { color: var(--text-body); font-size: .9rem; line-height: 1.7; margin-bottom: .75rem; }
+.solution-card ul { list-style: none; margin-bottom: 1rem; }
+.solution-card ul li {
+    display: flex; align-items: flex-start; gap: .5rem;
+    font-size: .875rem; color: var(--text-body); padding: .25rem 0;
+}
+.solution-card ul li svg {
+    width: 14px; height: 14px; stroke: var(--verify);
+    fill: none; stroke-width: 2.4; flex-shrink: 0; margin-top: 4px;
+}
+
+/* ===== CASE STUDY CARDS (home preview) ===== */
+.case-studies-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem;
+}
+.case-card {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-rest);
+    transition: border-color .2s, box-shadow .2s, transform .2s;
+}
+.case-card:hover {
+    border-color: var(--border-hover);
+    box-shadow: var(--shadow-card);
+    transform: translateY(-2px);
+}
+.case-card-visual {
+    height: 140px; display: flex; align-items: center;
+    justify-content: center; position: relative;
+}
+.case-card-visual svg {
+    width: 40px; height: 40px; stroke: var(--white);
+    fill: none; stroke-width: 1.5; opacity: .9;
+}
+.case-card-visual .case-tag {
+    position: absolute; top: .75rem; left: .75rem;
+    font-size: .7rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .05em; color: var(--white);
+    background: rgba(0,0,0,.3); padding: .2rem .6rem; border-radius: 4px;
+}
+/* category swatches — deliberately fixed hues, they carry white glyphs */
+.case-visual-forecast  { background: #b91c1c; }
+.case-visual-analytics { background: #1e3a8a; }
+.case-visual-modelling { background: #4c1d95; }
+.case-visual-impact    { background: var(--navy-800); }
+
+/* ===== CASE STUDY ARTICLES ===== */
+.case-study {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-rest);
+    margin-bottom: 2rem; scroll-margin-top: 96px;
+    transition: border-color .2s, box-shadow .2s;
+}
+.case-study:last-child { margin-bottom: 0; }
+.case-study:hover { border-color: var(--border-hover); box-shadow: var(--shadow-card); }
+.case-study-header {
+    padding: 1.75rem 2rem 1.25rem;
+    border-bottom: 1px solid var(--line-soft);
+    background: var(--tint-case-head);
+}
+.case-study-meta {
+    display: flex; align-items: center; gap: .75rem;
+    flex-wrap: wrap; margin-bottom: .6rem;
+}
+.case-study-tag {
+    font-size: .7rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .06em; color: var(--badge-text);
+    background: var(--tint-badge); padding: .2rem .6rem; border-radius: 4px;
+}
+.case-study-date { font-size: .78rem; color: var(--text-muted); font-weight: 500; }
+.case-study-header h3 { font-size: 1.32rem; }
+.case-study-body { padding: 1.75rem 2rem 2rem; }
+.case-study-section { margin-bottom: 1.25rem; }
+.case-study-section h4 {
+    font-size: .78rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .08em; color: var(--label); margin-bottom: .35rem;
+}
+.case-study-section p { color: var(--text-body); font-size: .94rem; line-height: 1.75; }
+.case-study-partners {
+    display: flex; gap: 1.5rem; flex-wrap: wrap;
+    padding-top: 1.25rem; border-top: 1px solid var(--line-soft);
+}
+.case-study-partner {
+    display: flex; align-items: center; gap: .45rem;
+    font-size: .82rem; font-weight: 600; color: var(--text-muted);
+}
+.case-study-partner svg {
+    width: 16px; height: 16px; fill: none; stroke: var(--verify);
+    stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0;
+}
+.case-study-citation {
+    margin-top: 1rem; font-size: .82rem;
+    color: var(--text-muted); line-height: 1.7;
+}
+.case-study-citation em { color: var(--text-body); font-style: normal; }
+.case-study-citation a { color: var(--verify-text); }
+
+/* ===== PUBLICATIONS (inside a dark band) ===== */
+.pub-list { list-style: none; display: grid; gap: 1rem; }
+.pub-item {
+    background: var(--band-inset); border: 1px solid var(--band-line);
+    border-radius: var(--radius); padding: 1.25rem 1.5rem;
+    font-size: .88rem; color: var(--on-band-muted); line-height: 1.7;
+}
+.pub-item strong {
+    display: block; color: var(--on-band-heading); font-weight: 700;
+    font-size: .98rem; margin-bottom: .3rem; line-height: 1.45;
+}
+.pub-item em { font-style: normal; color: var(--on-band-text); }
+.pub-item a { color: var(--on-band-label); }
+.pub-status {
+    display: inline-block; margin-top: .5rem;
+    font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
+    color: var(--sky-200); background: var(--on-band-badge);
+    padding: .15rem .55rem; border-radius: 4px;
+}
+
+/* ===== ABOUT ===== */
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: start; }
+.about-content h2 { margin-bottom: .75rem; }
+.about-content p { color: var(--text-body); line-height: 1.75; margin-bottom: 1rem; }
+
+.values-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.value-item {
+    background: var(--tint-panel); border: 1px solid var(--line-soft);
+    border-radius: var(--radius); padding: 1.25rem;
+    transition: background .15s;
+}
+.value-item:hover { background: var(--tint-panel-hover); }
+.value-item h4 { color: var(--badge-text); margin-bottom: .25rem; font-size: .95rem; }
+.value-item p { color: var(--text-body); font-size: .85rem; line-height: 1.6; }
+
+/* ===== STATS ===== */
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.25rem; }
+.stat {
+    text-align: center; padding: 1.75rem 1rem;
+    border: 1px solid var(--line); border-radius: var(--radius);
+    background: var(--surface-2); box-shadow: var(--shadow-rest);
+}
+.stat-number {
+    font-size: clamp(1.45rem, 2.4vw, 2.25rem); font-weight: 800; color: var(--action);
+    line-height: 1.1; margin-bottom: .45rem; letter-spacing: -.02em;
+}
+.stat-label { font-size: .85rem; color: var(--text-body); }
+.section-dark .stat { background: var(--band-inset); border-color: var(--band-line); box-shadow: none; }
+.section-dark .stat-label { color: var(--on-band-muted); }
+
+/* ===== TRUST BAR ===== */
+.trust-bar {
+    padding: 3rem 0; border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    background: var(--bg-rail);
+}
+.trust-bar-inner { text-align: center; }
+.trust-bar-label {
+    font-size: .72rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: .1em; color: var(--text-muted); margin-bottom: 1.25rem;
+}
+.trust-items {
+    display: flex; align-items: center; justify-content: center;
+    gap: 1.75rem; flex-wrap: wrap;
+}
+.trust-item {
+    display: flex; align-items: center; gap: .5rem;
+    font-size: .88rem; font-weight: 500; color: var(--text-body);
+}
+.trust-item svg {
+    width: 18px; height: 18px; stroke: var(--verify);
+    fill: none; stroke-width: 2.4; flex-shrink: 0;
+}
+
+/* ===== PARTNERS ===== */
+.partners {
+    padding: 2.5rem 0; border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    background: var(--bg-rail);
+}
+.partners-inner { text-align: center; }
+.partners-label {
+    font-size: .72rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: .1em; color: var(--text-muted); margin-bottom: 1rem;
+}
+.partners-grid { display: flex; align-items: center; justify-content: center; gap: 2.5rem; flex-wrap: wrap; }
+.partner {
+    font-size: .88rem; font-weight: 600; color: var(--text-body);
+    display: flex; align-items: center; gap: .4rem;
+}
+.partner-dot { width: 6px; height: 6px; background: var(--link); border-radius: 50%; flex-shrink: 0; }
+
+/* ===== CONTACT ===== */
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+.contact-info h2 { margin-bottom: .75rem; }
+.contact-info > p { color: var(--text-body); line-height: 1.75; margin-bottom: 1.75rem; }
+.contact-detail { display: flex; align-items: flex-start; gap: .75rem; margin-bottom: 1.25rem; }
+.contact-detail-icon {
+    width: 40px; height: 40px; background: var(--tint-icon);
+    border-radius: 6px; display: flex; align-items: center;
+    justify-content: center; flex-shrink: 0;
+}
+.contact-detail-icon svg {
+    width: 18px; height: 18px; stroke: var(--icon); fill: none;
+    stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
+}
+.contact-detail-text h4 { font-size: .9rem; margin-bottom: .1rem; }
+.contact-detail-text p, .contact-detail-text a { color: var(--text-body); font-size: .9rem; }
+.contact-detail-note { color: var(--text-faint); font-size: .82rem; margin-top: .25rem; }
+
+.contact-form-card {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--radius-lg); padding: 2rem; box-shadow: var(--shadow-rest);
+}
+.contact-form-card h3 { margin-bottom: .375rem; }
+.contact-form-card > p { color: var(--text-body); font-size: .85rem; margin-bottom: 1.25rem; }
+.form-group { margin-bottom: 1rem; }
+.form-group label { display: block; font-size: .8rem; font-weight: 600; color: var(--text-lead); margin-bottom: .3rem; }
+.form-group input, .form-group textarea, .form-group select {
+    width: 100%; padding: .6rem .8rem;
+    border: 1px solid var(--field-line); border-radius: 6px;
+    font-size: .9rem; font-family: var(--font-sans);
+    color: var(--heading); background: var(--field-bg);
+    transition: border-color .15s, box-shadow .15s;
+}
+.form-group input::placeholder, .form-group textarea::placeholder { color: var(--text-placeholder); }
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+    outline: none; border-color: var(--link);
+    box-shadow: 0 0 0 2px var(--tint-ring);
+}
+.form-group textarea { resize: vertical; min-height: 90px; }
+.form-group select option { background: var(--field-bg); color: var(--heading); }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+.form-submit { width: 100%; justify-content: center; }
+
+/* ===== CTA BANNER (dark band in both themes) ===== */
+.cta-banner {
+    background:
+        radial-gradient(ellipse 60% 120% at 50% 0%, rgba(234,88,12,.22), transparent 70%),
+        var(--cta-bg);
+    padding: 4.5rem 0; text-align: center;
+    border-top: 1px solid var(--line-soft);
+}
+.cta-banner h2 { color: var(--on-band-heading); margin-bottom: .75rem; }
+.cta-banner p {
+    color: var(--on-band-muted); font-size: 1.05rem; margin-bottom: 1.75rem;
+    max-width: 520px; margin-left: auto; margin-right: auto;
+}
+
+/* ===== PAGE HEADER ===== */
+.page-header {
+    padding: 3.5rem 0 2.75rem;
+    background: var(--bg-page-header);
+}
+.page-header h1 { color: var(--heading); margin-bottom: .5rem; }
+.page-header p { color: var(--text-body); font-size: 1.05rem; max-width: 620px; line-height: 1.75; }
+
+/* ===== FOOTER (dark band in both themes) ===== */
+.site-footer { background: var(--footer-bg); color: var(--on-band-muted); padding: 3rem 0 1.5rem; }
+.footer-inner { display: grid; grid-template-columns: 2.5fr 1fr 1fr 1fr; gap: 2rem; margin-bottom: 2rem; }
+.footer-brand p { font-size: .85rem; line-height: 1.7; margin-top: .75rem; max-width: 300px; }
+/* the footer lockup is the same plated image — no type colours to set */
+.footer-heading {
+    font-size: .7rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: .12em; color: var(--on-band-text); margin-bottom: .75rem;
+}
+.footer-links { list-style: none; }
+.footer-links li { margin-bottom: .4rem; font-size: .85rem; }
+.footer-links a { color: var(--on-band-muted); font-size: .85rem; transition: color .15s; }
+.footer-links a:hover { color: var(--on-band-label); }
+.footer-bottom {
+    border-top: 1px solid var(--band-line); padding-top: 1.25rem;
+    display: flex; justify-content: space-between; align-items: center; font-size: .8rem;
+}
+.footer-bottom a { color: var(--on-band-muted); }
+.footer-bottom a:hover { color: var(--on-band-label); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    /* the hero visual is now content (the ember tree), so it stays on small
+       screens — only capped so it doesn't push the buttons off the fold */
+    .hero-visual { display: block; }
+    .hero-image { max-width: 440px; margin: 0 auto; }
+    .page-header-split { padding-bottom: 2.5rem; }
+    .footer-inner { grid-template-columns: 1fr 1fr; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .solutions-grid { grid-template-columns: 1fr; }
+    .service-block { grid-template-columns: 1fr; gap: 2rem; }
+    .service-block.reverse .service-content { order: 1; }
+    .service-block.reverse .service-visual { order: 2; }
+}
+@media (max-width: 768px) {
+    .mobile-toggle { display: block; }
+    .nav-inner { height: 104px; }
+    .logo-lockup { height: 62px; }
+    .nav-links {
+        display: none; position: absolute; top: 104px; left: 0; right: 0;
+        background: var(--bg-header); flex-direction: column; padding: 1rem;
+        border-bottom: 1px solid var(--header-line);
+    }
+    .nav-links.open { display: flex; }
+    .nav-cta { margin-left: 0; margin-top: .375rem; }
+    .hero { padding: 3.5rem 0 3rem; }
+    .section { padding: 3.5rem 0; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .footer-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+    .footer-bottom { flex-direction: column; gap: .5rem; text-align: center; }
+    .values-grid { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: 1fr 1fr; }
+    .trust-items { gap: 1.5rem; }
+    .case-study-header { padding: 1.5rem 1.25rem 1.1rem; }
+    .case-study-body { padding: 1.5rem 1.25rem; }
+}
+@media (max-width: 480px) {
+    .stats { grid-template-columns: 1fr; }
+    .hero-buttons { flex-direction: column; }
+    .hero-buttons .btn { justify-content: center; }
+    .services-grid { grid-template-columns: 1fr; }
+    .case-studies-grid { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .btn:hover, .service-card:hover, .solution-card:hover, .case-card:hover { transform: none; }
+}
