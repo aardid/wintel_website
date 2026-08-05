@@ -204,11 +204,32 @@ The pre-2026-08 Wildfire Intelligence site (light theme, 4 pages) is preserved i
     smoke alpha is expensive in PNG. No WebP encoder exists on this machine (the `convert.exe` on PATH
     is Windows' filesystem tool, not ImageMagick); converting it to WebP elsewhere would cut it to
     roughly 150–250 KB and is the single biggest page-weight win available.
-    Sizing: `.hero-grid` is `1.08fr 1.5fr` with `.hero-image` at `width: 100%` — ~600px rendered on a
-    1120px container, up 13% from the original `1.12fr 1.38fr` at 93%. **That ratio is the balance
-    point.** At `1fr 1.62fr` the image is bigger still, but the copy column drops under ~430px and the
-    h1 breaks to four lines, splitting "wildfire / prevention". Native artwork is 860px wide, so 100%
-    never upscales — to go wider, move the grid ratio, not the image width.
+    **It is a backdrop, not a column item.** `.hero .hero-visual` is `position: absolute`, anchored
+    `inset: 0 auto 0 30%`, at `opacity: .42`, with the image at `width: min(76vw, 1010px)` — ~995px
+    rendered at a 1440 viewport, starting under the copy and bleeding past the container's right edge
+    to the viewport (`.hero` clips it with `overflow: hidden`). That is up from ~600px in-flow, fully
+    opaque, and starting clear of the text.
+    - **Two masks, intersected**, are what make that survivable. Horizontal: the leading edge fades to
+      transparent by 34% so the embers stop competing with the headline it now sits under. Vertical:
+      at 1010px the image is ~699px tall against a ~670px hero, so without a top/bottom fade the
+      overflow clip would cut the smoke on a hard horizontal line at the header and at the band below.
+      `mask-composite: intersect` (`-webkit-mask-composite: source-in`); if a browser ignores the
+      composite the layers default to `add` and the fades weaken, which degrades quietly.
+    - **This is past native resolution.** The artwork is 860px wide, so 1010px upscales ~1.17x. It
+      holds up only because it is soft smoke at .42 opacity behind a mask — do not push it much
+      further without a larger source render.
+    - **Scoped to `.hero` deliberately.** `what-we-do.html` reuses `.hero-visual` for the mesh canvas
+      inside `.page-header-split`, and that one must stay in flow as a real grid column. Never drop
+      the `.hero ` prefix on these rules.
+    - **`.hero-content` needs its explicit `z-index: 1`.** An absolutely positioned child paints
+      *above* in-flow siblings even at `z-index: 0`, so source order alone would put the tree over the
+      headline. Removing that line silently buries the copy.
+    - Lifting the visual out of flow leaves grid column 2 empty; the copy stays pinned to column 1 at
+      ~432px, which is what keeps the h1 on three lines.
+    - The 900px block undoes all of this — `position: static`, `mask-image: none`, opacity .62,
+      centred and capped at 440px. A faint image *beside* the copy is atmosphere; *under* a narrow
+      single column it is just poor contrast. The mask reset matters: in flow and centred, the
+      horizontal fade lops the left side off the tree and the whole thing looks lopsided.
   - **Mesh band** — the animated canvas, moved out of the hero to sit *below* the What We Do section
     (`.mesh-band`), where it illustrates the capabilities instead of competing with the headline. It
     keeps `id="hero-field"` because `js/main.js` binds to that id, and it sizes itself from its

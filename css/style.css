@@ -408,6 +408,40 @@ h4 { font-size: 1.05rem; font-weight: 700; }
     display: flex; justify-content: center; align-items: center;
     position: relative;
 }
+
+/* ---- HOMEPAGE HERO BACKDROP ----------------------------------------------
+   On the homepage the ember tree is a BACKDROP, not a column item: lifted out
+   of the grid flow, anchored to the right of the copy, bleeding past the
+   container edge (.hero already clips with overflow:hidden) and dropped to low
+   opacity so it reads as atmosphere behind the headline.
+   SCOPED TO .hero ON PURPOSE — what-we-do.html reuses .hero-visual for the mesh
+   canvas inside .page-header-split, and that one must stay in flow.
+   z-index matters here: an absolutely positioned child paints ABOVE in-flow
+   siblings even at z-index 0, so .hero-content has to be raised explicitly
+   rather than relying on source order. */
+.hero .hero-visual {
+    position: absolute; inset: 0 auto 0 30%;
+    justify-content: flex-start; z-index: 0; pointer-events: none;
+}
+.hero .hero-content { position: relative; z-index: 1; }
+.hero .hero-image {
+    width: min(76vw, 1010px);  /* 860px native, so this upscales ~1.17x — fine
+                                  only because it is soft smoke at .42 opacity */
+    opacity: .42;
+    /* Two masks, intersected. Horizontal: pulled left the image now runs under the
+       copy, so its leading edge fades out where the text sits — without this the
+       embers compete with the headline. Vertical: at this size it is taller than
+       the hero, and .hero's overflow:hidden would otherwise cut the smoke on a
+       hard horizontal line at the header and at the band below. */
+    -webkit-mask-image:
+        linear-gradient(to right, transparent 0%, rgba(0,0,0,.35) 14%, #000 34%),
+        linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%);
+    -webkit-mask-composite: source-in;
+            mask-image:
+        linear-gradient(to right, transparent 0%, rgba(0,0,0,.35) 14%, #000 34%),
+        linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%);
+            mask-composite: intersect;
+}
 .hero-graphic {
     width: 100%; aspect-ratio: 16 / 9; position: relative;
     -webkit-mask-image: radial-gradient(
@@ -830,9 +864,19 @@ h4 { font-size: 1.05rem; font-weight: 700; }
 @media (max-width: 900px) {
     .hero-grid { grid-template-columns: 1fr; }
     /* the hero visual is now content (the ember tree), so it stays on small
-       screens — only capped so it doesn't push the buttons off the fold */
+       screens — only capped so it doesn't push the buttons off the fold.
+       The desktop backdrop treatment is undone here: a faint image sitting
+       behind the copy is fine beside it, but not under it on a narrow column. */
     .hero-visual { display: block; }
+    .hero .hero-visual { position: static; inset: auto; }
     .hero-image { max-width: 440px; margin: 0 auto; }
+    .hero .hero-image {
+        width: 100%; opacity: .62;
+        /* the edge fades exist to tuck the desktop backdrop behind the copy and
+           under the hero's clip; in flow and centred they just lop the tree's
+           left side off */
+        -webkit-mask-image: none; mask-image: none;
+    }
     .page-header-split { padding-bottom: 2.5rem; }
     .footer-inner { grid-template-columns: 1fr 1fr; }
     .about-grid { grid-template-columns: 1fr; gap: 2rem; }
