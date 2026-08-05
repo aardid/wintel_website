@@ -43,46 +43,111 @@ The pre-2026-08 Wildfire Intelligence site (light theme, 4 pages) is preserved i
 
 ## Key Design Decisions
 
-- **Logo:** source artwork is `wildfire_intelligence/logo/ChatGPT Image Aug 4, 2026, 01_56_33 PM.png`
-  — a **Wintel / WILDFIRE INTELLIGENCE** lockup: detailed araucaria in navy/steel, amber fire swoosh,
-  cyan wind swoosh, navy wordmark, orange tagline, with a **baked-in glow**. Real alpha channel (wall
-  pixels carry grey RGB at alpha 0, so crop on alpha and ignore RGB).
-  - **Two thresholds when extracting.** Use a high alpha threshold (~140) for *geometry*, or the glow
-    smears the detected bounds, and keep every pixel above ~8 in the *output* so the glow survives.
-  - **The emblem cannot be split off with a vertical cut**, because the canopy overhangs to the right
-    above the wordmark. The extraction masks an **L-shaped region**: everything except
-    (`x >= X0 AND y >= Y0`). Order matters — find `X0` first (least-dense solid column in the middle
-    band, across all rows), *then* `wordTop` from the columns right of `X0`. Doing it the other way
-    round samples the tagline's far-right glow, reports a `wordTop` below "Wintel", and leaves the
-    name inside the emblem crop.
-  - The lockup is wide (1743×512, 3.4:1), so height drives horizontal cost: 84px tall ≈ 286px wide.
-  - **The artwork is drawn for light backgrounds.** Its tree and wordmark are near-black navy
-    (`rgb 0,11,30`), which vanishes on this site's navy. So the site uses a **knockout version**: the
-    dark ink is remapped to light cool ink (`lum < .44` and not warm → `0.97 - lum*0.62` against
-    214/226/247), leaving the orange and blue swooshes untouched. Do not "correct" the emblem back to
-    the source colours while the theme is dark.
-  - **Two lockups are in use, matched to their surface.** `img/logo-lockup.png` (original colours) in
-    the **light header bar**; `img/logo-lockup-reverse.png` (dark ink lifted to light, warm colours
-    untouched) in the **dark footer band**. Both transparent, no plate, no live text. If a surface's
-    lightness changes, swap which file it points at rather than editing either image.
-    - **This is why the header bar is light.** The lockup's type and tree are near-black navy, so they
-      need a light surface. Rather than plating the logo, the whole top bar is bone
-      (`--bg-header`), with its own type tokens (`--header-text`, `--header-strong`, `--header-tint`,
-      `--header-line`) because the page around it is dark. Don't repoint those at the dark-theme text
-      tokens — the header is deliberately a light island on a dark page.
-    - Header height is 128px (104px mobile) to fit a 96px lockup; the mobile nav's `top` offset must
-      stay equal to the header height or the dropdown detaches.
-    - `img/logo-lockup-reverse.png` is the same lockup with the dark ink lifted to light — use it only
-      if the header ever goes dark again.
-  - The lockup's tagline is ~4px tall at a 60px lockup height — it reads as texture, not words. That is
-    the artwork's own proportion. Only a redrawn source with a larger tagline fixes it.
-  - `img/logo-mark.png` (880×512) — knockout emblem alone (dark ink → light ink), for a dark surface
-    with no plate. Currently unused by the pages; kept for slides/favicons and in case the header
-    reverts to "emblem + live text" (that variant needs `--logo-sub` and `--logo-glow`).
-  - `img/logo-mark-onlight.png` (880×512) — emblem alone, original colours, for light surfaces.
-  - `img/favicon-32.png` and `img/favicon-180.png` — knockout emblem on a **navy tile in both sizes**;
-    a transparent light-ink tree would disappear on a white tab strip.
-  - Superseded sources in the same folder, newest first: `…Aug 4, 09_02_46/09_02_55…png` (same pine
+- **Logo:** source artwork is `wildfire_intelligence/logo/ChatGPT Image Aug 5, 2026, 11_42_11 AM.png`
+  — a **Wintel / WILDFIRE INTELLIGENCE** lockup: a **shield** split vertically, cool blue water on the
+  left and orange flame on the right, with a dark tree silhouette standing on the seam; navy wordmark,
+  orange-red tagline. Real alpha channel (wall pixels carry grey RGB at alpha 0, so crop on alpha and
+  ignore RGB).
+  - **The build script is `_scratch`-only, so keep these numbers.** Everything below was measured off
+    this source; re-deriving them costs a session. The crop box is the `alpha > 140` bbox - origin
+    `(297,318)`, size **902x323**, aspect **2.79:1** - shipped **downscaled to 760x272** (167 KB).
+    The emblem-only marks stay at native res because no page ships them.
+  - **Measure in the same frame you cut in.** All geometry is in the `alpha > 140` crop frame. An
+    earlier source's pass measured against the `alpha > 8` bbox instead - a 1px/3px offset, enough to
+    leave the top three rows of "Wintel" inside the emblem crop. The build script re-derives `X0` at
+    run time and hard-fails if it moves, so a re-cut source shouts.
+  - **One threshold, not two.** Both baked glows (cool around the shield, red around the tagline) live
+    entirely in the *wall* at alpha 0, so a single alpha threshold (~140) does geometry and output. The
+    Aug 4 lockup was the exception, with its glow in the alpha channel. No white plate either - the
+    09_25 orange render was the only source that baked one in.
+  - **Plain vertical cut, with room to spare.** Columns **267..307 are all empty** (41 of them), so the
+    emblem is `x < X0` and the type block is `x >= X0`, with **`X0 = 287`** (the gutter midpoint). No
+    L-shaped mask: the shield is compact and does not overhang the wordmark the way the araucaria
+    lockups did. If a future source returns to a spreading canopy, the L-cut logic is in this file's
+    history.
+  - The lockup is wide (2.79:1), so height drives horizontal cost: 84px tall is ~235px wide.
+  - **The knockout needs a spatial gate, and colour alone cannot substitute.** The artwork is drawn for
+    light backgrounds - its wordmark is near-black navy (`rgb 0,32,70`) and vanishes on this site's
+    navy - but inside the shield that *same* navy is two different things: the outer border **and the
+    tree silhouette**, which only reads because the fill behind it is bright. Lifting it there would
+    erase the tree. So:
+    - The lift applies **only to `x >= X0`**, where separation is total: "Wintel" ink is 20,740 px below
+      lum .14, then a dead zone (30 px in .14-.16, 1 px in .16-.22), then the orange tagline above .22
+      (`rgb 251,62,16`), excluded anyway by the `(B - R) > 15` navy test.
+    - **The shield is left exactly as drawn.** Its bright blue/orange fill is what carries the shape on
+      a dark page, and its dark border reading quietly against the page is the artwork's own look. Do
+      not "fix" it by lifting the border - that takes the tree with it.
+    - Lifted ink maps to `0.97 - lum*0.62` against 214/226/247.
+    - Consequence worth knowing: the emblem crop is **identical in both lockups**, because the lift
+      never touches `x < X0`. `logo-mark.png` and `logo-mark-onlight.png` are the same image here.
+  - **THE PAGES NO LONGER RENDER A LOCKUP PNG.** Header and footer both use **emblem image + live
+    text**: `img/logo-mark.png` (the shield, original colours) next to real `<span>`s for "Wintel" and
+    the tagline. The `logo-lockup*.png` files are still built and `logo-lockup.png` is still what the
+    homepage JSON-LD `logo` cites (search engines render that on white), but nothing on the pages
+    references them. See the LIVE-TEXT LOCKUP entry below for why.
+    - **The header bar is dark (changed 2026-08-05).** It was previously a bone "light island", which
+      existed only so a full-colour lockup could keep its near-black navy ink on a light surface.
+      Live text removed that constraint entirely — the wordmark is now a CSS colour, so it follows the
+      theme onto any surface. `--bg-header` / `--header-line` / `--header-text` / `--header-strong` /
+      `--header-tint` point at dark-theme values; `--bg-header` is `rgba(11,16,32,.88)`, one step off
+      the page so the sticky edge still reads under `backdrop-filter: blur(14px)`.
+      **Keep those five tokens separate** rather than folding them into the ordinary `--text-*` set —
+      that indirection is what let the header be a light island before and what would let it become
+      one again cheaply. If a surface ever does go light, only two things change: those tokens, and
+      `.logo-word`'s colour (the shield itself works on both, being full-colour artwork).
+    - Header height is 116px (104px mobile) to fit an 84px shield (62px mobile); the mobile nav's `top`
+      offset must stay equal to the *mobile* header height or the dropdown detaches (verified at 0px
+      gap).
+    - **The mobile nav now takes over at 900px, not 768px.** The six-item nav needs ~580px on its own;
+      below ~865px it collided with the logo and clipped the Contact button. That was already true of
+      the original lockup, so this fixes a long-standing squeeze rather than one live text introduced.
+      Between 901px and 1080px there is an intermediate step that shrinks the lockup and tightens nav
+      padding - the lockup gives way rather than the nav, which is why `.nav-links a` is `nowrap`.
+      Three numbers must move together if the breakpoint changes: the `max-width` on the mobile block,
+      the `min-width` on the intermediate block, and `.nav-links` `top`.
+  - **LIVE-TEXT LOCKUP (changed 2026-08-05).** Only the shield is artwork; "Wintel" and
+    "WILDFIRE INTELLIGENCE" are CSS type (`.logo-mark` + `.logo-text` > `.logo-word` / `.logo-sub`).
+    - *Why.* Every source so far locks its tagline to a fixed share of the artwork's height - ~14% for
+      this shield, which is ~12px at an 84px lockup and unchangeable without a redraw. The pine lockup
+      was worse (5.4px, and it forced a 136px header); the Aug 4 lockup worse still (~4px, pure
+      texture). Live text sets the two lines **independently**, which is the only way to make the
+      tagline larger than the artwork allows. It is also crisp at any DPR, selectable, and indexable.
+    - *Sizes.* `.logo-word` 2.55rem/800, `.logo-sub` 1.12rem/700 at .04em tracking, uppercased in CSS
+      (the DOM text is "Wildfire Intelligence", so screen readers and search engines get normal case).
+      Footer: 1.9rem / .84rem against a 62px shield. The tagline is deliberately large — it is the line
+      that names the company, and live text is the only reason it can be.
+    - *The two lines are deliberately not width-matched.* A lockup ties them to the artwork's ratio
+      (sub ≈ .28 × word for equal widths); here the ratio is ~.44, so the tagline runs wider than
+      "Wintel" above it. Keep the stack **left-aligned** so that reads as intentional. The tagline is
+      now the widest element in the lockup, so it — not the wordmark — sets the logo's footprint and is
+      what the 1080px nav breakpoint is fighting. Four places move together when it changes: the base
+      rule, the 1080px block, the 900px block, and `.footer-brand`.
+    - *Colour.* `--logo-sub` (fire-500) rather than the artwork's own `rgb 251,62,16`, so the tagline
+      is a site token and re-themes with everything else. `--logo-glow` is a soft warm drop-shadow at
+      .20 lifting the shield off the bar; both tokens are live now, `--logo-plate` is unused.
+    - *The alt text moved.* `<img>` carries `alt=""` because the words are now real text beside it; the
+      accessible name comes from the `<a aria-label>`. Don't restore a descriptive alt or the name gets
+      announced twice.
+  - **Palette note:** this mark carries **both** site accents - blue water and orange flame - and the
+    tagline is `--action`-adjacent orange. Good fit; nothing to reconcile. (The 09_50 mark's red was a
+    fourth warm hue distinct from `--action`, which is why it did not sit as well.)
+  - `img/logo-mark.png` (267x323) - the shield alone. **This is the file every page renders.**
+    `img/logo-mark-onlight.png` is byte-identical (the lift never touches `x < X0`), kept only so
+    anything referencing the on-light name still resolves.
+  - `img/favicon-32.png` and `img/favicon-180.png` - the shield on a navy tile. This emblem is
+    **near-square (0.83:1) and its own fill is bright**, so it needs no squaring crop and no knockout,
+    and it is by some margin the most legible favicon of the Aug 2026 set. The tree marks needed the
+    tile because their light-ink linework would vanish on a white tab strip; this one keeps the tile
+    only for a consistent silhouette.
+  - Superseded sources in the same folder, newest first: `…Aug 5, 11_13_29 AM…png` (tall narrow conifer
+    with a blue+orange flame swoosh, 1.45:1 — the only lockup so far that needed NO spatial gate, since
+    its swoosh crossed in front of the trunk; also the only one that forced a taller header).
+    The rest are araucaria/spreading-canopy lockups, all needing an L-cut rather than a vertical one:
+    `…Aug 5, 09_50_15 AM…png` (blue swoosh, **red** tagline, 2.95:1;
+    the source of the spatial-gate knockout), `…Aug 5, 09_25_05 AM…png` (orange swoosh and orange
+    tagline on a baked white plate — the warmth-gated plate knockout lives in this file's history if
+    that direction returns), `…Aug 4, 01_56_33 PM…png` ("Wintel" over a much smaller tagline, 2.47:1,
+    glow baked into the *alpha* so it needed two thresholds), `…Aug 4, 09_02_46/09_02_55…png` (same pine
     concept but wordmark set as "Wildfire Intelligence" over two lines, no "Wintel"),
     `…Aug 4, 08_59_23…png` (narrow pine, same colours), `…Aug 4, 08_38_38…png` (red flame droplet with
     alpha), `…Aug 3…png` (red flame droplet on a grey wall, no alpha — needed matting). Prefer a
@@ -111,7 +176,10 @@ The pre-2026-08 Wildfire Intelligence site (light theme, 4 pages) is preserved i
     contents use `--on-band-*` tokens, so anything nested in a band uses those, not `--text-*`.
   - **Switching theme:** paste one of the commented sets in part 3 over the token block, and set the
     matching `THEME` in `js/main.js` — `'navy'` (active), `'plum'` (plum-violet dark) or `'bone'`
-    (light paper). Both retired sets note the extra palette hues they need. A dual auto light/dark
+    (light paper). Both retired sets note the extra palette hues they need. Each also carries its own
+    `--header-*` type tokens and a line saying which lockup file to point the `<img>` at — the header
+    has its own surface, so a paste that skips those leaves the nav text the wrong polarity and the
+    logo's ink invisible. A dual auto light/dark
     build also worked: wrap the bone set in `@media (prefers-color-scheme: light)` and pick the JS
     ramp from `matchMedia`.
   - Theme-specific gotchas worth keeping: on **bone**, pale washes vanish (`--tint-visual` needs ~.20,
@@ -136,6 +204,11 @@ The pre-2026-08 Wildfire Intelligence site (light theme, 4 pages) is preserved i
     smoke alpha is expensive in PNG. No WebP encoder exists on this machine (the `convert.exe` on PATH
     is Windows' filesystem tool, not ImageMagick); converting it to WebP elsewhere would cut it to
     roughly 150–250 KB and is the single biggest page-weight win available.
+    Sizing: `.hero-grid` is `1.08fr 1.5fr` with `.hero-image` at `width: 100%` — ~600px rendered on a
+    1120px container, up 13% from the original `1.12fr 1.38fr` at 93%. **That ratio is the balance
+    point.** At `1fr 1.62fr` the image is bigger still, but the copy column drops under ~430px and the
+    h1 breaks to four lines, splitting "wildfire / prevention". Native artwork is 860px wide, so 100%
+    never upscales — to go wider, move the grid ratio, not the image width.
   - **Mesh band** — the animated canvas, moved out of the hero to sit *below* the What We Do section
     (`.mesh-band`), where it illustrates the capabilities instead of competing with the headline. It
     keeps `id="hero-field"` because `js/main.js` binds to that id, and it sizes itself from its
@@ -202,8 +275,11 @@ URL. Both homepages include JSON-LD Organization schema. Both sites have `robots
 
 - **Add a new page:** copy an existing inner page, update `<title>`, meta tags, canonical URL,
   the nav `active` class, and content; then add the URL to `sitemap.xml`.
-- **Change the logo:** edit the inline `.logo-mark` SVG — it appears twice per page (header and
-  footer) on all six pages, plus `favicon.svg`. Sizing lives in `.logo-mark` / `.logo-word` CSS.
+- **Change the logo:** the lockup is an emblem image plus live text, twice per page (header and
+  footer) on all six pages. Swapping artwork means re-cutting `img/logo-mark.png` from a new source
+  (see the Logo section for the extraction recipe) - the wordmark and tagline are CSS and need no
+  re-export. Sizing lives in `.logo-mark` / `.logo-word` / `.logo-sub`, with a mobile block at 900px
+  and an intermediate block at 1080px.
 - **Retune the hero animation:** `js/main.js` → the topographic mesh IIFE. `COLS`/`ROWS` set
   grid density, `edgeStyle()` the height-to-colour ramp, `sigColor()` the particle colour.
 - **Connect the contact form:** replace the mailto handler in `js/main.js` with a form action URL.

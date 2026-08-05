@@ -57,14 +57,16 @@
 :root {
     /* backgrounds */
     --bg-page:        var(--navy-950);
-    /* Light header bar. This is also what lets the logo keep its ORIGINAL
-       colours on a transparent background — its type is near-black navy and
-       needs a light surface behind it, so header colours are their own tokens. */
-    --bg-header:      rgba(244,242,237,.97);
-    --header-line:    rgba(26,19,48,.16);
-    --header-text:    #2b3550;
-    --header-strong:  #0f1b33;
-    --header-tint:    rgba(2,132,199,.14);
+    /* Dark header bar, lifted one step off the page so the sticky edge reads.
+       The header keeps its OWN type tokens even though it is now dark like the
+       rest of the page — that indirection is what let it be a light island
+       before, and what lets it become one again without touching components.
+       Pair a dark header with img/logo-lockup-reverse.png (the knockout). */
+    --bg-header:      rgba(11,16,32,.88);
+    --header-line:    rgba(129,140,248,.20);
+    --header-text:    var(--ash-300);
+    --header-strong:  var(--ash-100);
+    --header-tint:    rgba(56,189,248,.16);
     --bg-hero:        rgba(7,11,22,.42);
     --bg-page-header: rgba(7,11,22,.55);
     --bg-alt:         rgba(19,26,46,.52);
@@ -109,8 +111,12 @@
     --verify:       var(--sky-400);
     --verify-text:  var(--sky-400);
     --badge-text:   var(--sky-200);
-    /* --logo-sub / --logo-glow are only needed if the header ever reverts to
-       "emblem image + live text"; the full-lockup version uses --logo-plate. */
+    /* the lockup is "emblem image + live text", so these two are live:
+       --logo-sub tints the WILDFIRE INTELLIGENCE line, --logo-glow lifts the
+       shield off the bar. --logo-plate is unused while no full-colour lockup
+       sits on a dark surface. */
+    --logo-sub:  var(--fire-500);
+    --logo-glow: drop-shadow(0 2px 10px rgba(249,115,22,.20));
 
     /* tints */
     --tint-nav:          rgba(56,189,248,.16);
@@ -153,6 +159,9 @@
    Palette additions needed: --ink-900:#1a1330; --ink-800:#332b4a; --ink-600:#5c5375;
    --ink-400:#8a819e; --bone:#f7f5f0; plus the violet/cyan/plum ramps from B.
     --bg-page: var(--bone);                --bg-header: rgba(247,245,240,.92);
+    --header-line: rgba(26,19,48,.16);     --header-tint: rgba(124,58,237,.14);
+    --header-text: #332b4a;                --header-strong: #1a1330;
+    LIGHT header ⇒ point both .logo-lockup img src at logo-lockup.png (original colours).
     --bg-hero: transparent;                --bg-page-header: rgba(255,255,255,.55);
     --bg-alt: rgba(255,255,255,.62);       --bg-rail: rgba(255,255,255,.55);
     --surface: rgba(255,255,255,.92);      --surface-2: rgba(255,255,255,.76);
@@ -190,7 +199,10 @@
    --cyan-400:#22d3ee --cyan-300:#67e8f9 --cyan-200:#a5f3fc --plum-950:#0d0918
    --plum-900:#140d24 --plum-850:#1d1436 --plum-800:#291c4a, and violet-tinted ash
    (#5b5175 #7d7296 #b6acce #d8d1e8 #ece6f7 #f6f3fb).
-    --bg-page: var(--plum-950);            --bg-header: rgba(13,9,24,.9);
+    --bg-page: var(--plum-950);            --bg-header: rgba(29,20,54,.88);
+    --header-line: rgba(167,139,250,.24);  --header-tint: rgba(167,139,250,.18);
+    --header-text: #b6acce;                --header-strong: #f6f3fb;
+    DARK header ⇒ keep logo-lockup-reverse.png (the knockout), as the live theme does.
     --bg-hero: rgba(13,9,24,.42);          --bg-page-header: rgba(13,9,24,.55);
     --bg-alt: rgba(29,20,54,.52);          --bg-rail: rgba(13,9,24,.46);
     --surface: rgba(29,20,54,.74);         --surface-2: rgba(20,13,36,.62);
@@ -280,36 +292,48 @@ h4 { font-size: 1.05rem; font-weight: 700; }
 }
 .nav-inner {
     display: flex; align-items: center;
-    justify-content: space-between; height: 128px;
+    justify-content: space-between; height: 116px;
 }
 
 /* ---- LOGO ----------------------------------------------------------------
-   The complete artwork lockup (emblem + "Wintel" + tagline) in its ORIGINAL
-   colours, on a fully transparent background — no plate, no live text, no
-   recolouring.
-   KNOWN TRADE-OFF: the lockup's type and tree are near-black navy
-   (rgb 0,26,57) against a #070b16 page — about 1.1:1 contrast, so they read
-   very faintly. Only the orange and cyan elements carry. The fixes, in order
-   of fidelity to the artwork: (1) switch the page to the bone light theme
-   (part 3 of this file) so the original colours work natively; (2) use
-   img/logo-mark.png, the knockout emblem, and accept recoloured ink;
-   (3) put the plate back (--logo-plate is still defined for that).
+   The complete artwork lockup (fire/water shield + "Wintel" + tagline),
+   EMBLEM IMAGE + LIVE TEXT. Only the shield comes from the artwork
+   (img/logo-mark.png, 267x323, original colours — its own blue/orange fill reads
+   on a dark page, and the dark tree silhouette inside it needs that bright fill,
+   so it is never knocked out). "Wintel" and the tagline are real text.
+   WHY: the artwork's own tagline is locked to ~14% of its height, i.e. ~12px at a
+   header-sized lockup and unchangeable without a redraw. Live text sets the two
+   lines independently, which is what lets the tagline run larger than the artwork
+   ever allowed. It also stays crisp at any DPR and is selectable/indexable.
+   The full-lockup PNGs (logo-lockup*.png) are still built and are what the JSON-LD
+   cites; nothing on the pages renders them.
+   TRADE-OFF: the two lines are no longer locked to the artwork's proportions, so
+   the tagline is deliberately WIDER than "Wintel" above it. Keep them
+   left-aligned — the block reads as a stack, not a centred lockup.
    ------------------------------------------------------------------------ */
 .logo {
-    display: inline-flex; align-items: center;
+    display: inline-flex; align-items: center; gap: .85rem;
     flex-shrink: 0; color: var(--heading);
     background: none; padding: 0; border: none; box-shadow: none;
 }
 .logo:hover { color: var(--heading); }
-/* 1265x512 artwork (2.47:1) — height drives horizontal cost: 96px tall is ~237px
-   wide. The header keeps the ORIGINAL colours (light bar behind it); the footer
-   swaps in logo-lockup-reverse.png because it sits on a dark band. */
-.logo-lockup { height: 96px; width: auto; display: block; }
-.footer-brand .logo-lockup { height: 62px; }
+.logo-mark { height: 84px; width: auto; display: block; filter: var(--logo-glow); }
+.logo-text { display: flex; flex-direction: column; gap: .18rem; }
+.logo-word {
+    font-size: 2.55rem; font-weight: 800; line-height: .95;
+    letter-spacing: -.025em; color: var(--header-strong);
+}
+.logo-sub {
+    font-size: 1.12rem; font-weight: 700; line-height: 1;
+    letter-spacing: .04em; text-transform: uppercase; color: var(--logo-sub);
+}
+.footer-brand .logo-mark { height: 62px; }
+.footer-brand .logo-word { font-size: 1.9rem; color: var(--on-band-heading); }
+.footer-brand .logo-sub  { font-size: .84rem; letter-spacing: .035em; }
 
 .nav-links { display: flex; align-items: center; gap: .4rem; list-style: none; }
 .nav-links a {
-    display: block; padding: .55rem 1rem;
+    display: block; padding: .55rem 1rem; white-space: nowrap;
     color: var(--header-text); font-weight: 600; font-size: 1.02rem;
     border-radius: 7px; transition: color .15s, background .15s;
 }
@@ -354,7 +378,7 @@ h4 { font-size: 1.05rem; font-weight: 700; }
     position: relative; overflow: hidden;
 }
 .hero-grid {
-    display: grid; grid-template-columns: 1.12fr 1.38fr;
+    display: grid; grid-template-columns: 1.08fr 1.5fr;
     gap: 2.5rem; align-items: center;
 }
 .hero-content { position: relative; z-index: 1; }
@@ -401,7 +425,10 @@ h4 { font-size: 1.05rem; font-weight: 700; }
    against the page gradient with no plate or backdrop. Held at 93% and with its
    highlights rolled off in the asset itself, so it supports the headline rather
    than pulling the eye off it. */
-.hero-image { width: 93%; height: auto; display: block; }
+/* The ember tree is 860px native. At the 1fr/1.62fr split a full-width image lands
+   ~670px on a 1120px container — still under native, so it never upscales. Don't
+   push past 100% here; go wider by moving the grid ratio instead. */
+.hero-image { width: 100%; height: auto; display: block; }
 
 /* ===== SPLIT PAGE HEADER =====
    What We Do mirrors the homepage hero — copy left, visual right — except the
@@ -790,6 +817,16 @@ h4 { font-size: 1.05rem; font-weight: 700; }
 .footer-bottom a:hover { color: var(--on-band-label); }
 
 /* ===== RESPONSIVE ===== */
+/* Between the mobile breakpoint and ~1080px the six-item nav and the live-text
+   lockup compete for the same row. The lockup gives way — shrinking type is less
+   disruptive than wrapping the nav, which is why .nav-links a is nowrap. */
+@media (max-width: 1080px) and (min-width: 901px) {
+    .logo { gap: .65rem; }
+    .logo-mark { height: 66px; }
+    .logo-word { font-size: 2rem; }
+    .logo-sub  { font-size: .88rem; letter-spacing: .03em; }
+    .nav-links a { padding: .55rem .7rem; font-size: .96rem; }
+}
 @media (max-width: 900px) {
     .hero-grid { grid-template-columns: 1fr; }
     /* the hero visual is now content (the ember tree), so it stays on small
@@ -804,11 +841,19 @@ h4 { font-size: 1.05rem; font-weight: 700; }
     .service-block.reverse .service-content { order: 1; }
     .service-block.reverse .service-visual { order: 2; }
 }
-@media (max-width: 768px) {
+/* Mobile nav takes over at 900px, not 768px. The six-item nav needs ~580px on its
+   own; below ~865px it ran into the logo and clipped the Contact button — that was
+   true of the original lockup too, so this fixes a long-standing squeeze rather
+   than one the live-text lockup introduced. */
+@media (max-width: 900px) {
     .mobile-toggle { display: block; }
     .nav-inner { height: 104px; }
-    .logo-lockup { height: 62px; }
+    .logo { gap: .6rem; }
+    .logo-mark { height: 60px; }
+    .logo-word { font-size: 1.8rem; }
+    .logo-sub  { font-size: .8rem; letter-spacing: .03em; }
     .nav-links {
+        /* this top offset MUST equal .nav-inner height above, or the dropdown detaches */
         display: none; position: absolute; top: 104px; left: 0; right: 0;
         background: var(--bg-header); flex-direction: column; padding: 1rem;
         border-bottom: 1px solid var(--header-line);
