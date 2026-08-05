@@ -708,6 +708,35 @@ h4 { font-size: 1.05rem; font-weight: 700; }
 .value-item h4 { color: var(--badge-text); margin-bottom: .25rem; font-size: .95rem; }
 .value-item p { color: var(--text-body); font-size: .85rem; line-height: 1.6; }
 
+/* ===== FOUNDER =====
+   Name rail left, bio right. No portrait: there is no photograph in the asset
+   set, and a placeholder avatar would read worse than none. If one is added
+   later it belongs above .founder-id, sized like .logo-mark. */
+.founder {
+    display: grid; grid-template-columns: 15rem 1fr; gap: 2.5rem;
+    align-items: start; max-width: 900px; margin: 0 auto;
+    padding: 2rem; border: 1px solid var(--line);
+    border-radius: var(--radius-lg); background: var(--surface-2);
+}
+.founder-id h3 { color: var(--text-strong); margin-bottom: .15rem; }
+.founder-role {
+    color: var(--label); font-size: .8rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .08em; margin-bottom: 1rem;
+}
+.founder-links { list-style: none; display: grid; gap: .45rem; }
+.founder-links a {
+    display: inline-flex; align-items: center; gap: .35rem;
+    color: var(--link); font-size: .88rem; overflow-wrap: anywhere;
+}
+.founder-links a:hover { color: var(--link-hover); }
+.founder-links svg {
+    width: 13px; height: 13px; flex-shrink: 0;
+    fill: none; stroke: currentColor; stroke-width: 2;
+    stroke-linecap: round; stroke-linejoin: round;
+}
+.founder-bio p { color: var(--text-body); line-height: 1.75; margin-bottom: 1rem; }
+.founder-bio p:last-child { margin-bottom: 0; }
+
 /* ===== STATS ===== */
 .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.25rem; }
 .stat {
@@ -880,6 +909,7 @@ h4 { font-size: 1.05rem; font-weight: 700; }
     .page-header-split { padding-bottom: 2.5rem; }
     .footer-inner { grid-template-columns: 1fr 1fr; }
     .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .founder { grid-template-columns: 1fr; gap: 1.5rem; padding: 1.5rem; }
     .solutions-grid { grid-template-columns: 1fr; }
     .service-block { grid-template-columns: 1fr; gap: 2rem; }
     .service-block.reverse .service-content { order: 1; }
