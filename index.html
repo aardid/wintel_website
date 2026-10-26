@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wildfire Intelligence — AI &amp; Data Science for Wildfire Prevention</title>
-    <meta name="description" content="AI and data science for wildfire prevention: decision products and applied research covering fire-potential forecasting, escalation risk, 5 km climate projection, and the economics of acting on a forecast.">
-    <meta name="keywords" content="wildfire prevention, wildfire AI, fire data science, wildfire potential forecasting, fire escalation probability, wildfire climate projection, forecast economic value, cost-loss, New Zealand wildfire, Australia wildfire">
+    <title>Wildfire Intelligence — Daily Forecast of Where and When Fires Will Start</title>
+    <meta name="description" content="Wintel forecasts, every morning, the probability of a new wildfire tomorrow in every district of a region, located to 1 km and verified daily against the fires that appeared. Live over southern Chile since September 2026; built on free global data, so any region can be switched on within days.">
+    <meta name="keywords" content="wildfire ignition forecast, fire occurrence prediction, where fires will start, daily wildfire forecast, wildfire pre-positioning, forestry fire protection, fire agency forecasting, wildfire AI, New Zealand wildfire, Australia wildfire, Chile wildfire">
 
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Wildfire Intelligence — AI &amp; Data Science for Wildfire Prevention">
-    <meta property="og:description" content="Decision products and applied research for wildfire prevention: fire-potential forecasting, escalation risk, climate projection, and the economics of acting on a forecast.">
+    <meta property="og:title" content="Wildfire Intelligence — Where and When the Next Fires Will Start">
+    <meta property="og:description" content="A daily, self-verifying forecast of wildfire ignition by district and down to 1 km. Live since September 2026; beats current practice in 11 of 11 seasons; any region switched on within days.">
     <meta property="og:url" content="https://www.wildfireintelligence.co.nz/">
+    <meta property="og:image" content="https://www.wildfireintelligence.co.nz/img/dashboard-today.png">
     <meta property="og:site_name" content="Wildfire Intelligence">
 
     <link rel="canonical" href="https://www.wildfireintelligence.co.nz/">
@@ -19,7 +20,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
-    <link rel="stylesheet" href="css/style.css?v=20260805-1330">
+    <link rel="stylesheet" href="css/style.css?v=20261026-2330">
 
     <script type="application/ld+json">
     {
@@ -29,7 +30,7 @@
         "alternateName": "Wintel",
         "url": "https://www.wildfireintelligence.co.nz",
         "logo": "https://www.wildfireintelligence.co.nz/img/logo-lockup.png",
-        "description": "AI and data science for wildfire prevention: decision products and applied research spanning fire-potential forecasting, fire-escalation probability, climate-change projection of fire growth, and forecast-value analysis.",
+        "description": "Wildfire Intelligence builds Wintel, a daily, self-verifying forecast of where and when the next wildfires will start: the probability of a new fire tomorrow in every district of a region, located to 1 km, checked every day against the fires that appeared. Peer-reviewed methods; free global data; any region deployable within days.",
         "address": {
             "@type": "PostalAddress",
             "addressLocality": "Christchurch",
@@ -49,6 +50,14 @@
             "url": "https://aardid.github.io/",
             "sameAs": ["https://aardid.github.io/"]
         },
+        "makesOffer": {
+            "@type": "Offer",
+            "itemOffered": {
+                "@type": "Product",
+                "name": "Wintel Ignition Forecast",
+                "url": "https://www.wildfireintelligence.co.nz/ignition-forecast.html"
+            }
+        },
         "areaServed": ["New Zealand", "Australia", "Latin America"]
     }
     </script>
@@ -67,7 +76,7 @@
             <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
         </button>
         <ul class="nav-links">
-            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="ignition-forecast.html">Products</a></li>
             <li><a href="what-we-do.html">What We Do</a></li>
             <li><a href="solutions.html">Solutions</a></li>
             <li><a href="case-studies.html">Case Studies</a></li>
@@ -86,13 +95,13 @@
                 <div class="hero-content">
                     <div class="hero-badge">
                         <span class="hero-badge-dot"></span>
-                        Products &amp; Applied Research
+                        Live daily forecast &middot; running since September 2026
                     </div>
-                    <h1>AI and data science for <span class="highlight-accent">wildfire prevention</span></h1>
-                    <p class="hero-subtitle">We turn fire records, live weather, and climate projections into decision products for the organisations that plan for, prevent, and fight wildfire &mdash; and we publish the methods behind them. Forecasting, escalation risk, climate projection, and the economics of acting on each.</p>
+                    <h1>Where and when the next <span class="highlight-accent">fires will start</span></h1>
+                    <p class="hero-subtitle">Every morning, Wintel ranks every district in a region by the calibrated probability of a new fire tomorrow, locates it within 1 km, and checks yesterday's forecast against the fires that actually appeared. Built on free global data, so any region on Earth can be switched on within days.</p>
                     <div class="hero-buttons">
-                        <a href="what-we-do.html" class="btn btn-primary">Explore what we do</a>
-                        <a href="case-studies.html" class="btn btn-secondary">See the research</a>
+                        <a href="ignition-forecast.html" class="btn btn-primary">See the product</a>
+                        <a href="contact.html" class="btn btn-secondary">Ask about a pilot</a>
                     </div>
                 </div>
                 <div class="hero-visual">
@@ -105,50 +114,165 @@
     <!-- ===== TRUST BAR ===== -->
     <section class="trust-bar">
         <div class="container trust-bar-inner">
-            <div class="trust-bar-label">Why Organisations Choose Us</div>
+            <div class="trust-bar-label">Why Protection Managers Look at This</div>
             <div class="trust-items">
                 <div class="trust-item">
                     <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                    Beats current practice in 11 of 11 seasons
+                </div>
+                <div class="trust-item">
+                    <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                    Verified every day, in public, on the record
+                </div>
+                <div class="trust-item">
+                    <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                    Proven across seven regions on four continents
+                </div>
+                <div class="trust-item">
+                    <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
                     Published, peer-reviewed methods
-                </div>
-                <div class="trust-item">
-                    <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                    116,771 fire records analysed
-                </div>
-                <div class="trust-item">
-                    <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                    Skill measured in economic value
-                </div>
-                <div class="trust-item">
-                    <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                    New Zealand &amp; Australia
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== WHAT WE DO PREVIEW ===== -->
+    <!-- ===== THE PROBLEM ===== -->
     <section class="section">
         <div class="container">
             <div class="section-header">
-                <span class="section-label">What We Do</span>
-                <h2>Forecast the potential, quantify the value</h2>
-                <p>Four connected capabilities, each built and published as peer-reviewed method rather than a black box: forecast the near term, explain what drives escalation, project it forward, and price the decision.</p>
+                <span class="section-label">The Problem</span>
+                <h2>Wildfire protection starts after the fire has started</h2>
+                <p>Detecting a fire, simulating its spread and dispatching crews are well served. The decision made before ignition, where to place crews, patrols and aircraft tomorrow, still relies on two blunt tools.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-card-icon"><svg viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg></div>
+                    <h3>Fire-weather alerts</h3>
+                    <p>Say when conditions are dangerous across a whole region, not where fires will start. On their own they trigger costly over-dispatch.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-card-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+                    <h3>Historical frequency</h3>
+                    <p>&ldquo;Where you burned before, you burn again.&rdquo; It ignores tomorrow's weather and last week's activity, and it is what most operators use today.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-card-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+                    <h3>Who lives with this</h3>
+                    <p>Fire-protection managers at forestry companies and fire agencies, who position crews every day of the season. In New Zealand alone: 4,000&ndash;5,000 vegetation fires a year, 97% started by people.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+                    <h3>The missing layer</h3>
+                    <p>Nobody forecasts where and when the next fire will start. Detection vendors act after ignition; spread and fire-weather systems say when, not where. Wintel is the layer in front of both.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== THE PRODUCT ===== -->
+    <section class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Product 1 &middot; Ignition Forecast</span>
+                <h2>A daily ignition forecast that verifies itself</h2>
+                <p>The live system over 86 districts of southern Chile, running unattended every morning since 17 September 2026. Good or bad, every day is on the record.</p>
+            </div>
+            <div class="showcase">
+                <div class="showcase-frame">
+                    <a href="ignition-forecast.html" aria-label="See the ignition forecast product page">
+                        <img src="img/dashboard-today.png?v=20261026" alt="The Wintel dashboard: a 1 km ignition-probability map of southern Chile, the ten priority districts for tomorrow with calibrated probabilities, yesterday's score and the season to date" width="1600" height="750">
+                    </a>
+                </div>
+                <ol class="callouts">
+                    <li class="callout"><span class="callout-num">1</span><div><h4>Where, at 1 km</h4><p>Ignition probability tomorrow in every 1 km cell, with the 1,000 km&sup2; of highest-scoring zones outlined.</p></div></li>
+                    <li class="callout"><span class="callout-num">2</span><div><h4>Which districts</h4><p>The ten to prioritise for tomorrow, and two and three days out, each with a calibrated probability.</p></div></li>
+                    <li class="callout"><span class="callout-num">3</span><div><h4>How yesterday went</h4><p>Scored against the fires that actually appeared, next to the historical baseline. A bad day is shown like a good one.</p></div></li>
+                    <li class="callout"><span class="callout-num">4</span><div><h4>The season so far</h4><p>The running share of fires caught, and any past season replayable day by day.</p></div></li>
+                </ol>
+            </div>
+            <div class="hero-buttons" style="justify-content:center; margin-top:2rem;">
+                <a href="ignition-forecast.html" class="btn btn-primary">How it works and how it is sold</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PRODUCT 2 ===== -->
+    <section class="section">
+        <div class="container">
+            <div class="service-block reverse">
+                <div class="service-content">
+                    <span class="section-label">Product 2 &middot; Risk &amp; Deployment</span>
+                    <h2>Then: where crews should be based tomorrow</h2>
+                    <p>The same 1 km forecast, weighted by the probability that a fire escapes and by the plantation at stake around it, with arrival time by road from each crew base. Move the bases on the map and the coverage recalculates; your own bases, inventory and fire register replace the assumptions.</p>
+                    <ul class="service-features">
+                        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span><strong>2&times; the escaped fires</strong> caught in the same 1,000 km&sup2;: 20% against 11%, in 11 of 11 seasons</span></li>
+                        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span><strong>Five layers on one grid</strong>: occurrence, escape, assets, arrival time, out of reach</span></li>
+                        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span><strong>Verified against the official fire register</strong>, every season held out of training</span></li>
+                    </ul>
+                    <a href="crew-deployment.html" class="btn btn-secondary">See Risk &amp; Deployment</a>
+                </div>
+                <div>
+                    <div class="showcase-frame">
+                        <a href="crew-deployment.html" aria-label="See the Risk and Deployment product page">
+                            <img src="img/dashboard-risk.png?v=20261026" alt="The Wintel Risk and deployment dashboard: escape-risk map with crew bases, share of risk within 30 minutes of a base, and priority sectors with arrival time" width="1600" height="745" loading="lazy">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== STATS ===== -->
+    <section class="section section-dark">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Does It Work?</span>
+                <h2>Out of sample, every season, against current practice</h2>
+                <p>Every fire season is forecast by a model that never saw it. The metric is the one a protection manager uses: of tomorrow's fires, how many fell in the units prioritised today.</p>
+            </div>
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-number">41% vs 35%</div>
+                    <div class="stat-label">Next-day fires caught by the ten priority districts, Wintel against historical frequency. A fire-weather index alone: 10%.</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">11 of 11</div>
+                    <div class="stat-label">Fire seasons won in the pilot region, 2015&ndash;2025</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">+65%</div>
+                    <div class="stat-label">More fires caught at 1 km than history-based zones of the same area</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">68 of 68</div>
+                    <div class="stat-label">Held-out seasons across seven regions on four continents in which the same engine beats the best fire-weather-index model</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CAPABILITIES ===== -->
+    <section class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Behind the Forecast</span>
+                <h2>The same science, applied to the rest of the fire decision</h2>
+                <p>The two dashboards are the products. Around them sit four published capabilities we bring to pilots and research partnerships: how fires escalate, what a forecast is worth, and how fire growth changes with the climate.</p>
             </div>
             <div class="services-grid">
                 <div class="service-card">
                     <div class="service-card-icon">
                         <svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
                     </div>
-                    <h3>Sub-Hourly Potential Forecasting</h3>
-                    <p>Machine learning on live automatic weather station feeds, updating fire potential between the daily fire-danger cycles that operations run on today.</p>
+                    <h3>Sub-Hourly Fire Potential</h3>
+                    <p>Machine learning on live weather-station feeds, updating fire potential between the daily fire-danger cycles that operations run on today.</p>
                 </div>
                 <div class="service-card">
                     <div class="service-card-icon">
                         <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
                     </div>
                     <h3>Escalation Probability by Fire Size</h3>
-                    <p>The probability a fire exceeds 0.1, 1, 10, or 100 ha given ignition &mdash; and which fuel, terrain, and weather conditions govern each of those thresholds.</p>
+                    <p>The probability a fire exceeds 0.1, 1, 10 or 100 ha given ignition, and which fuel, terrain and weather conditions govern each threshold.</p>
                 </div>
                 <div class="service-card">
                     <div class="service-card-icon">
@@ -168,62 +292,34 @@
         </div>
     </section>
 
-    <!-- ===== STATS ===== -->
-    <section class="section section-dark">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-label">By the Numbers</span>
-                <h2>Built on fire records, not assumptions</h2>
-            </div>
-            <div class="stats">
-                <div class="stat">
-                    <div class="stat-number">116,771</div>
-                    <div class="stat-label">New Zealand wildfire records analysed (1931&ndash;2022)</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-number">Sub-hourly</div>
-                    <div class="stat-label">Fire potential update interval from live weather stations</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-number">5 km</div>
-                    <div class="stat-label">Grid resolution of our national climate projections</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-number">0.1&ndash;100 ha</div>
-                    <div class="stat-label">Fire-size thresholds modelled, across three orders of magnitude</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- ===== WHO WE SERVE ===== -->
     <section class="section">
         <div class="container">
             <div class="section-header">
                 <span class="section-label">Who We Serve</span>
-                <h2>Built for the people making fire decisions</h2>
-                <p>From frontline suppression to national fire strategy and portfolio risk, our tools serve the people deciding under time pressure and uncertainty.</p>
+                <h2>Built for the people who place crews every day of the season</h2>
+                <p>Sold by region and by fire season: a paid pilot with public daily verification, then a subscription. Plantation forestry first, fire agencies next, utilities and insurers after.</p>
             </div>
             <div class="services-grid">
                 <div class="service-card">
-                    <div class="service-card-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-                    <h3>Fire Agencies &amp; Emergency Management</h3>
-                    <p>Fire potential updated within the day rather than once a day, plus the escalation probability behind it. Delivered by dashboard, API, SMS, or email.</p>
+                    <div class="service-card-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+                    <h3>Plantation Forestry</h3>
+                    <p>Where fires will start tomorrow across the estate, and where to base crews so the ones most likely to escape are reached in time. Retrained on your own ignition register and scored against your real positioning.</p>
                 </div>
                 <div class="service-card">
-                    <div class="service-card-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
-                    <h3>Forestry &amp; Land Management</h3>
-                    <p>Fire-environment classification, suppression thresholds, and landscape-scale risk analysis for estate planning and resource allocation.</p>
+                    <div class="service-card-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+                    <h3>Fire Agencies &amp; Emergency Management</h3>
+                    <p>A district-by-district occurrence forecast beside the fire-weather index you already issue, so readiness levels say where as well as when.</p>
                 </div>
                 <div class="service-card">
                     <div class="service-card-icon"><svg viewBox="0 0 24 24"><path d="M2 20h20"/><path d="M5 20V8l7-5 7 5v12"/><rect x="9" y="12" width="6" height="8"/></svg></div>
                     <h3>Utilities, Insurance &amp; Finance</h3>
-                    <p>Quantified wildfire exposure for asset planning, underwriting, compliance, and disclosure &mdash; spatially explicit and API-deliverable.</p>
+                    <p>Daily ignition probability along corridors and across portfolios, plus climate-adjusted escalation exposure for planning, underwriting and disclosure.</p>
                 </div>
                 <div class="service-card">
                     <div class="service-card-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
                     <h3>Research &amp; Government</h3>
-                    <p>Driver attribution across fire sizes and national 5 km climate projections, to underpin fire strategy with published evidence rather than assumptions.</p>
+                    <p>Multi-region evidence on what sets where fires start, driver attribution across fire sizes, and national 5 km climate projections to underpin fire strategy.</p>
                 </div>
             </div>
         </div>
@@ -232,7 +328,7 @@
     <!-- ===== PARTNERS ===== -->
     <section class="partners">
         <div class="container partners-inner">
-            <div class="partners-label">Trusted Research &amp; Operational Partners</div>
+            <div class="partners-label">Research &amp; Operational Partners</div>
             <div class="partners-grid">
                 <div class="partner"><span class="partner-dot"></span>University of Canterbury</div>
                 <div class="partner"><span class="partner-dot"></span>Scion &mdash; NZ Forest Research Institute</div>
@@ -244,9 +340,9 @@
     <!-- ===== CTA ===== -->
     <section class="cta-banner">
         <div class="container">
-            <h2>Ready to turn fire data into decisions?</h2>
-            <p>We partner with agencies, forestry, and research organisations on pilot projects, applied research, and operational deployment.</p>
-            <a href="contact.html" class="btn btn-primary">Get in touch</a>
+            <h2>Looking for pilot partners for the 2026&ndash;27 fire season</h2>
+            <p>Forestry companies and fire agencies in New Zealand, Australia and Latin America. A 30-minute walkthrough of the live dashboard is the first step.</p>
+            <a href="contact.html" class="btn btn-primary">Request a walkthrough</a>
         </div>
     </section>
 
@@ -260,11 +356,13 @@
                 <a href="index.html" class="logo" aria-label="Wintel - Wildfire Intelligence home">
                     <img class="logo-mark" src="img/logo-mark.png?v=20260805-1210" alt="" width="267" height="323"><span class="logo-text"><span class="logo-word">Wintel</span><span class="logo-sub">Wildfire Intelligence</span></span>
                 </a>
-                <p>AI-powered wildfire forecasting and analytics. Helping agencies, land managers, and researchers make faster, evidence-based fire decisions.</p>
+                <p>A daily, verified forecast of where and when the next fires will start, for any region. Built on peer-reviewed fire science from Christchurch, New Zealand.</p>
             </div>
             <div>
-                <div class="footer-heading">Services</div>
+                <div class="footer-heading">Products</div>
                 <ul class="footer-links">
+                    <li><a href="ignition-forecast.html">Ignition Forecast</a></li>
+                    <li><a href="crew-deployment.html">Risk &amp; Deployment</a></li>
                     <li><a href="what-we-do.html">What We Do</a></li>
                     <li><a href="solutions.html">Solutions</a></li>
                     <li><a href="case-studies.html">Case Studies</a></li>

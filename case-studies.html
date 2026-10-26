@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Case Studies &amp; Publications — Wildfire Intelligence</title>
-    <meta name="description" content="The research behind our products: sub-hourly fire potential forecasting and its economic value across Australian regions, scale-dependent controls on fire growth in New Zealand, and 5 km climate projections of fire-growth probability.">
-    <meta name="keywords" content="wildfire case study, sub-hourly fire forecasting Australia, cost-loss forecast value, scale-dependent fire growth, delta-ALE climate projection, Scion wildfire research, Covey Associates">
+    <meta name="description" content="The live daily ignition forecast over southern Chile, the multi-region evidence behind it (seven regions, four continents), and the published research on sub-hourly fire potential, fire-growth drivers and 5 km climate projections.">
+    <meta name="keywords" content="wildfire case study, ignition forecast Chile, fire occurrence forecasting, fire weather index comparison, sub-hourly fire forecasting Australia, cost-loss forecast value, scale-dependent fire growth, delta-ALE climate projection">
 
     <meta property="og:type" content="website">
     <meta property="og:title" content="Case Studies &amp; Publications — Wildfire Intelligence">
-    <meta property="og:description" content="Peer-reviewed wildfire forecasting, escalation-driver, and climate-projection research across Australia and New Zealand.">
+    <meta property="og:description" content="A live daily ignition forecast, multi-region evidence across four continents, and peer-reviewed research on fire potential, escalation drivers and climate projection.">
     <meta property="og:url" content="https://www.wildfireintelligence.co.nz/case-studies.html">
     <meta property="og:site_name" content="Wildfire Intelligence">
 
@@ -19,7 +19,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
-    <link rel="stylesheet" href="css/style.css?v=20260805-1330">
+    <link rel="stylesheet" href="css/style.css?v=20261026-2330">
 </head>
 <body>
 
@@ -34,7 +34,7 @@
             <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
         </button>
         <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
+            <li><a href="ignition-forecast.html">Products</a></li>
             <li><a href="what-we-do.html">What We Do</a></li>
             <li><a href="solutions.html">Solutions</a></li>
             <li><a href="case-studies.html" class="active">Case Studies</a></li>
@@ -50,12 +50,122 @@
         <div class="container">
             <span class="section-label">Our Work</span>
             <h1>Case Studies</h1>
-            <p>Every capability we offer began as a research problem with a published or peer-reviewed answer. These are the three studies the platform is built on, with the papers cited so you can check the working.</p>
+            <p>The live ignition forecast, the crew-deployment prototype built on it, and the multi-region evidence behind both; then the three published studies the rest of the platform is built on. Papers are cited so you can check the working.</p>
         </div>
     </section>
 
     <section class="section">
         <div class="container">
+
+            <!-- CASE STUDY 0 — LIVE PRODUCT -->
+            <article class="case-study" id="chile-live-forecast">
+                <div class="case-study-header">
+                    <div class="case-study-meta">
+                        <span class="case-study-tag">Live Product</span>
+                        <span class="case-study-date">Running since 17 September 2026</span>
+                    </div>
+                    <h3>A Daily, Self-Verifying Ignition Forecast &mdash; 86 Districts of Southern Chile</h3>
+                </div>
+                <div class="case-study-body">
+                    <div class="case-study-section">
+                        <h4>The Problem</h4>
+                        <p>Protection managers in one of the most fire-exposed plantation regions in the world already have fire-weather alerts, spread simulators and a detection network. What they asked for, in their words, was where and when: which district, which day. Their positioning rule was historical frequency, and nothing on the market answered the question.</p>
+                    </div>
+                    <div class="case-study-section">
+                        <h4>What We Built</h4>
+                        <p>In six weeks, from public data only: a panel of 85 variables per district-day across &Ntilde;uble, Biob&iacute;o and La Araucan&iacute;a (86 districts, 69,000 km&sup2;, 2012&ndash;2025), a gradient-boosted occurrence model with isotonic calibration, a second model that distributes each district's probability to 1 km cells, separate models for two and three days out, and an unattended daily job on free cloud infrastructure that forecasts, publishes and verifies. A regional outlook card translates the day's index into expected fires, calibrated on eleven out-of-sample seasons. The 2022&ndash;23 season, including the February 2023 firestorm, can be replayed day by day with a model that never saw it.</p>
+                    </div>
+                    <div class="case-study-section">
+                        <h4>The Outcome</h4>
+                        <p>Out of sample over eleven seasons, the ten districts prioritised each day capture 41% of next-day fires against 35% for historical frequency, winning every season; a fire-weather index alone captures 10%. At 1 km, 1,000 km&sup2; of zones capture 14.6% against 8.9%. Against the official fire register rather than satellite detections, 42% against 38%. The system has published every morning since 17 September 2026 and scores itself in public; that verified archive is the product, and it is the demo put in front of every customer.</p>
+                    </div>
+                    <div class="case-study-partners">
+                        <span class="case-study-partner">
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                            Open data: NASA FIRMS, ERA5, OpenStreetMap, WorldPop, CONAF
+                        </span>
+                        <span class="case-study-partner">
+                            <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 6 3 6 3s3 0 6-3v-5"/></svg>
+                            University of Canterbury
+                        </span>
+                    </div>
+                    <p class="case-study-citation">
+                        Product page: <a href="ignition-forecast.html">Wintel ignition forecast</a>. The dashboard is private to pilot partners; walkthroughs on request.
+                    </p>
+                </div>
+            </article>
+
+            <!-- CASE STUDY 0a — RISK & DEPLOYMENT PROTOTYPE -->
+            <article class="case-study" id="risk-deployment">
+                <div class="case-study-header">
+                    <div class="case-study-meta">
+                        <span class="case-study-tag">Product 2 &middot; Prototype</span>
+                        <span class="case-study-date">October 2026</span>
+                    </div>
+                    <h3>From Where Fires Start to Where Crews Should Be Based &mdash; Southern Chile, 2022&ndash;23 Replayed</h3>
+                </div>
+                <div class="case-study-body">
+                    <div class="case-study-section">
+                        <h4>The Problem</h4>
+                        <p>An occurrence forecast catches the most fires, but most fires go out on their own. The ones that matter are the few that escape, and whether a crew can reach them in time. Operators position crews by experience and history; nobody told them which of tomorrow's fires would get away, what sat around them, or how far the nearest base was by road.</p>
+                    </div>
+                    <div class="case-study-section">
+                        <h4>What We Built</h4>
+                        <p>A second dashboard on the same 1 km grid as the ignition forecast. An escape model trained on 55,323 fires from the national fire register (2011&ndash;2025, evaluated season held out) estimates per cell the probability a fire exceeds 10 ha from vegetation, exposure and accessibility; travel time from settlements turned out to be the strongest access signal, with a tenfold difference in escape rate between the nearest and farthest quintiles. Escape risk is multiplied by plantation hectares within 3 km, and arrival time is computed along the road network from each base by shortest path. Bases are placed by optimisation over historical ignitions, can be moved on the map with coverage recalculated in the browser, and exported as the file an operator's real bases replace. A verification tab scores every layer against the register's next-day fires.</p>
+                    </div>
+                    <div class="case-study-section">
+                        <h4>The Outcome</h4>
+                        <p>Over eleven held-out seasons, weighting occurrence by escape doubles the escaped fires caught in the same 1,000 km&sup2;: 20% against 11%, winning every season, at the stated cost of catching fewer fires overall (14% against 31%). On the eve of the 2 February 2023 outbreak the regional escape index sat at the 98th percentile for the date. The prototype was shown to protection managers as work in progress, with the three asks that turn it into their tool: bases, inventory and a daily record of where crews were positioned.</p>
+                    </div>
+                    <div class="case-study-partners">
+                        <span class="case-study-partner">
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                            Open data: CONAF fire register and land survey, OpenStreetMap, WorldPop, terrain tiles
+                        </span>
+                        <span class="case-study-partner">
+                            <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 6 3 6 3s3 0 6-3v-5"/></svg>
+                            University of Canterbury
+                        </span>
+                    </div>
+                    <p class="case-study-citation">
+                        Product page: <a href="crew-deployment.html">Wintel Risk &amp; Deployment</a>. Occurrence and escape, not spread; hectares, not dollars.
+                    </p>
+                </div>
+            </article>
+
+            <!-- CASE STUDY 0b — MULTI-REGION -->
+            <article class="case-study" id="multi-region-occurrence">
+                <div class="case-study-header">
+                    <div class="case-study-meta">
+                        <span class="case-study-tag">Multi-Region Evidence</span>
+                        <span class="case-study-date">Manuscript submitted 2026</span>
+                    </div>
+                    <h3>Next-Day Fire Occurrence Across Seven Regions on Four Continents</h3>
+                </div>
+                <div class="case-study-body">
+                    <div class="case-study-section">
+                        <h4>The Problem</h4>
+                        <p>Fire agencies decide every day where to pre-position crews, yet the operational guidance rests on fire-danger indices designed to describe fire behaviour, not to locate new fires. Whether a single engine built from public data could beat both that index and the historical-frequency heuristic, across very different fire regimes and with no local tuning, had not been tested.</p>
+                    </div>
+                    <div class="case-study-section">
+                        <h4>What We Built</h4>
+                        <p>The same gradient-boosted occurrence model, built only from reanalysis weather, fire history and recent fire activity, evaluated on agency fire registers in Chile, Portugal, California, New Zealand, Mexico, the US South-east and Canada: 409,411 fires, 68 held-out fire seasons, 4.9 million unit-days. Benchmarks: historical frequency, the best fitted Fire Weather Index model, a self-exciting point process, and a re-implementation of ECMWF's Probability of Fire.</p>
+                    </div>
+                    <div class="case-study-section">
+                        <h4>The Outcome</h4>
+                        <p>Ranked by the Fire Weather Index, units capture fewer of tomorrow's fires than the historical heuristic, even with perfect weather: the limitation is the index, not the weather forecast. The model beats the heuristic in 66 of 68 seasons and the best FWI model in all 68, catching 1.7 to 3.9 times more next-day fires than the index in the top 10% of units, depending on the region. Which information carries the skill depends on the ignition regime: recent human activity in Chile, California and Mexico; weather in Portugal, New Zealand and the US South-east. The model transfers to unseen regions and keeps most of its skill five days ahead with real weather forecasts.</p>
+                    </div>
+                    <div class="case-study-partners">
+                        <span class="case-study-partner">
+                            <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 6 3 6 3s3 0 6-3v-5"/></svg>
+                            University of Canterbury
+                        </span>
+                    </div>
+                    <p class="case-study-citation">
+                        Ardid, A. et al. Next-day wildfire occurrence across seven fire regimes on four continents. <em>Manuscript submitted, 2026.</em>
+                    </p>
+                </div>
+            </article>
 
             <!-- CASE STUDY 1 -->
             <article class="case-study" id="australia-forecasting">
@@ -194,6 +304,18 @@
             </div>
             <ul class="pub-list">
                 <li class="pub-item">
+                    <strong>Next-day wildfire occurrence across seven fire regimes on four continents: fire weather indices fail to predict where fires start; learning from fire activity does</strong>
+                    Ardid, A. et al. (2026).
+                    <span class="pub-status">Submitted</span>
+                </li>
+                <li class="pub-item">
+                    <strong>Sub-hourly forecasting of fire potential using machine learning on time series of surface weather variables</strong>
+                    Ardid, A., Valencia, A., Power, A., Boer, M.M., Katurji, M., Gross, S. &amp; Dempsey, D. (2025).
+                    <em>International Journal of Wildland Fire</em> 34, WF24113.
+                    <a href="https://doi.org/10.1071/WF24113" target="_blank" rel="noopener">doi:10.1071/WF24113</a>
+                    <span class="pub-status">Published</span>
+                </li>
+                <li class="pub-item">
                     <strong>From forecast skill to economic value: sub-hourly wildfire potential forecasting across Australian regions</strong>
                     Ardid, A., Power, A., Valencia, A., Pearce, H.G., Gross, S., Dempsey, D. &amp; Boer, M. (2026).
                     <em>International Journal of Wildland Fire</em> 35, WF25221.
@@ -232,11 +354,13 @@
                 <a href="index.html" class="logo" aria-label="Wintel - Wildfire Intelligence home">
                     <img class="logo-mark" src="img/logo-mark.png?v=20260805-1210" alt="" width="267" height="323"><span class="logo-text"><span class="logo-word">Wintel</span><span class="logo-sub">Wildfire Intelligence</span></span>
                 </a>
-                <p>AI-powered wildfire forecasting and analytics. Helping agencies, land managers, and researchers make faster, evidence-based fire decisions.</p>
+                <p>A daily, verified forecast of where and when the next fires will start, for any region. Built on peer-reviewed fire science from Christchurch, New Zealand.</p>
             </div>
             <div>
-                <div class="footer-heading">Services</div>
+                <div class="footer-heading">Products</div>
                 <ul class="footer-links">
+                    <li><a href="ignition-forecast.html">Ignition Forecast</a></li>
+                    <li><a href="crew-deployment.html">Risk &amp; Deployment</a></li>
                     <li><a href="what-we-do.html">What We Do</a></li>
                     <li><a href="solutions.html">Solutions</a></li>
                     <li><a href="case-studies.html">Case Studies</a></li>

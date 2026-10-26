@@ -13,7 +13,65 @@ This directory contains two static websites:
   expect to lose ranking on the descriptive name.
 - **URL:** wildfireintelligence.co.nz
 - **Purpose:** AI-powered wildfire forecasting and analytics company site
-- **Pages:** Home, What We Do, Solutions, Case Studies, About, Contact
+- **Pages:** Home, Products (`ignition-forecast.html` = product 1, `crew-deployment.html` = product 2),
+  What We Do, Solutions, Case Studies, About, Contact
+- **THE PRODUCTS ARE THE TWO WINTEL DASHBOARDS (repositioned 2026-10-26).** Since October 2026 the
+  site sells two things first: **Product 1, the Ignition Forecast** — the daily, self-verifying
+  forecast of where and when the next fires will start (probability of a new fire tomorrow per
+  district, located to 1 km, verified every morning); and **Product 2, Risk & Deployment** — the
+  same 1 km forecast weighted by escape probability and plantation at stake, with arrival time by
+  road from each crew base ("where crews should be based tomorrow"; the Arauco project's
+  `prototipo_ocurrencia/riesgo/` prototype, English demo in `demo_nz/sitio_en/riesgo/`). Product 2
+  is honestly labelled a pilot-ready prototype: 2022–23 replayed out of sample, assumed bases and
+  plantation values, "occurrence and escape, not spread; hectares, not dollars". Its numbers: 20% vs
+  11% escaped fires (≥10 ha) in 1,000 km², 11/11 seasons; 47% vs 40% in 5,000 km²; catches fewer
+  fires overall (14% vs 31%); escape rate 15.3% vs 1.6% by travel time from settlements (Q5 vs Q1);
+  accessibility improves the escape model in 14/15 seasons; 55,323 register fires 2011–2025, 8%
+  ≥10 ha; 2 Feb 2023 = 98th percentile for the date. Source: `outputs/accesibilidad/RESULTADOS.md`
+  and `riesgo/README.md` in the Arauco project. The nav has ONE "Products" item (row-width limit)
+  pointing at product 1; both product pages carry a `.product-switch` row linking 01 ↔ 02, and the
+  footer column is "Products" with both. The four research capabilities (sub-hourly potential,
+  escalation, climate projection, forecast value) are secondary, framed as "behind the forecast". Source of truth for the product
+  story and every number on the site: the UC Ignition 2026 pitch material in
+  `\\file\Usersa$\aar135\Home\Desktop\projects\00_applications\grants\UC_ignition_2026` (poster, pitch
+  deck v2, one-pager) and the pilot project in `U:\Research\EruptionForecasting\fires\Wintel\arauco`
+  (its `CLAUDE.md`). Numbers used: top-10 districts 41% vs 35% history vs 10% FWI, AUC 0.81, 11/11
+  seasons 2015–2025; 1 km 14.6% vs 8.9% (+65%); vs official register 42% vs 38%; live since
+  17 Sep 2026 over 86 districts / 69,000 km²; multi-region 68/68 seasons vs best FWI model, 66/68 vs
+  history, 409,411 fires, 7 regions, 4 continents, 4.9 M unit-days; per-region top-10% capture
+  (Chile 40/10, Portugal 36/12, California 50/14, NZ 36/22, Mexico 70/19, US South-east 34/21,
+  Canada 49/26); risk prototype 2× escaped fires (20% vs 11%). If the pilot numbers change, the
+  places to edit are: `index.html` stats + trust bar, `ignition-forecast.html` stats + bars + copy,
+  `what-we-do.html` service 0, `case-studies.html` first two articles.
+  - **Never name the pilot client on the public site.** The Chilean pilot is described as "86
+    districts of southern Chile" / "protection managers in Chilean forestry". No company or person
+    names (the grant material follows the same rule; nothing is contracted). The dashboard itself is
+    private (Cloudflare Access, invite-only) and the English demo is local-only, so the site shows
+    screenshots and offers a walkthrough — it does NOT link to the live dashboard.
+  - **No prices on the site.** The pitch material carries US$45–60k pilot / US$150–180k per region
+    per season; the site says "paid pilot, then subscription, by region and fire season" and the
+    "benefit–cost ratio of roughly 4 to 5, on stated assumptions". Keep it that way unless Alberto
+    decides otherwise.
+  - **Nav:** "Home" was dropped from the nav (the logo is the home link) to make room for "Products"
+    without widening the six-item row the 900/1080px breakpoints are tuned to. Footer "Products"
+    column lists both product pages first.
+  - **Images (in `img/`, all 256-colour PNGs, ~140–170 KB):** `dashboard-today.png` (1600×750, the
+    English demo "Today" view for 15 Oct 2026, cut from the grant `_build/img/tablero_hoy_en.png`),
+    `dashboard-risk.png` (1600×745, the Risk & deployment prototype, 2 Feb 2023),
+    `wintel-vs-fwi.png` (1600×977, California/Portugal "eve of a big day" figure from the
+    multi-region paper, flattened onto white). They are drawn for white backgrounds, so they always
+    sit on the `--figure-plate` light plate (`.showcase-frame` / `.figure-plate`). Re-cut from the
+    English demo at `C:/Users/aar135/AppData/Local/wintel/demo_en/` if the dashboard UI changes.
+  - **New components** (part 4 of `css/style.css`): `.showcase` + `.callouts` (screenshot with the
+    four numbered callouts from pitch slide 4), `.steps` (every-morning pipeline), `.compare` /
+    `.bar-*` (Wintel vs FWI bars; model = sky, baseline = neutral ash so orange stays "action"),
+    `.figure-plate`, `.evidence-grid`, `.plain-panel` ("what it is not"), `.two-up`, `.status-pill`,
+    `.product-switch` (01/02 pills under each product header), `.steps-5` (five layers).
+    Tokens added: `--figure-plate`, `--figure-line`, `--figure-caption`, `--bar-model`, `--bar-base`,
+    `--bar-track`. `.status-pill` is inline-block on purpose: as inline-flex its long label could not
+    wrap on a phone.
+  - Product page JSON-LD is `schema.org/Product` with an `Offer`; the homepage Organization carries
+    `makesOffer` pointing at it.
 - **Contact:** Alberto Ardid — alberto@wildfireintelligence.co.nz, +64 27 595 4776
 - **Partners:** University of Canterbury, Scion (NZ Forest Research Institute), Covey Associates (QLD)
 - **Regions:** New Zealand, Australia, Latin America
@@ -253,6 +311,8 @@ The pre-2026-08 Wildfire Intelligence site (light theme, 4 pages) is preserved i
 ```
 website/
 ├── index.html                  # Wildfire Intelligence home
+├── ignition-forecast.html      # Product 1 (daily ignition forecast)
+├── crew-deployment.html        # Product 2 (risk & deployment: where crews should be based)
 ├── what-we-do.html
 ├── solutions.html
 ├── case-studies.html
@@ -306,3 +366,8 @@ URL. Both homepages include JSON-LD Organization schema. Both sites have `robots
 - **Connect the contact form:** replace the mailto handler in `js/main.js` with a form action URL.
 - **Add a case study:** follow the `<article class="case-study">` pattern in `case-studies.html`
   (id anchor, tag, date, Problem / What We Built / Outcome, partners).
+- **Refresh the product numbers after a season:** see the list under "THE PRODUCT IS THE DAILY
+  IGNITION FORECAST" above; the bar widths in `ignition-forecast.html` are inline `style="width:N%"`
+  and must match the printed values.
+- **Cloudbreak (`cloudbreak/`) was NOT updated with the product repositioning** — the Arauco
+  project notes call that name obsolete. Port only if it is still deployed.

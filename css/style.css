@@ -146,6 +146,19 @@
     --on-band-muted:   var(--ash-400);
     --on-band-label:   var(--sky-300);
     --on-band-badge:   rgba(56,189,248,.18);
+
+    /* product showcase — screenshots and figures rendered on light plates.
+       The dashboard and the paper figures are drawn for white, so they sit on a
+       bone plate regardless of theme; --figure-caption is the caption under it.
+       --bar-model / --bar-base colour the Wintel-vs-baseline comparison bars:
+       the model takes the data accent, the baseline stays neutral so orange
+       keeps meaning "action". */
+    --figure-plate:   #f7f7f5;
+    --figure-line:    rgba(129,140,248,.30);
+    --figure-caption: var(--ash-400);
+    --bar-model:      var(--sky-400);
+    --bar-base:       var(--ash-600);
+    --bar-track:      rgba(255,255,255,.06);
 }
 
 /* ---------- 3. RETIRED THEMES (one-paste restore) ----------------------------
@@ -879,6 +892,138 @@ h4 { font-size: 1.05rem; font-weight: 700; }
 .footer-bottom a { color: var(--on-band-muted); }
 .footer-bottom a:hover { color: var(--on-band-label); }
 
+/* ===== PRODUCT SHOWCASE (ignition-forecast.html, homepage) =====
+   A screenshot of the live dashboard on a light plate, with numbered callouts
+   that mirror the four things a customer is shown on the first demo: the 1 km
+   map, the priority districts, yesterday's score, the season to date. */
+.showcase { display: grid; gap: 1.5rem; }
+.showcase-frame {
+    background: var(--figure-plate); border: 1px solid var(--figure-line);
+    border-radius: var(--radius-lg); padding: .5rem; overflow: hidden;
+    box-shadow: var(--shadow-card);
+}
+.showcase-frame img { width: 100%; height: auto; display: block; border-radius: calc(var(--radius-lg) - 4px); }
+.showcase-caption { font-size: .82rem; color: var(--figure-caption); text-align: center; line-height: 1.6; }
+.showcase-caption a { color: var(--link); }
+.callouts {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
+    list-style: none;
+}
+.callout {
+    display: flex; gap: .75rem; align-items: flex-start;
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 1rem 1.1rem;
+}
+.callout-num {
+    flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
+    background: var(--tint-badge); color: var(--badge-text);
+    font-weight: 800; font-size: .85rem; display: grid; place-items: center;
+}
+.callout h4 { font-size: .95rem; margin-bottom: .2rem; color: var(--text-strong); }
+.callout p { font-size: .85rem; color: var(--text-body); line-height: 1.6; }
+
+/* Numbered steps — "every morning" */
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; list-style: none; counter-reset: step; }
+.steps-5 { grid-template-columns: repeat(5, 1fr); }  /* the five layers on crew-deployment.html */
+.step {
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 1.4rem 1.25rem 1.3rem; position: relative;
+}
+.step::before {
+    counter-increment: step; content: counter(step, decimal-leading-zero);
+    display: block; font-size: .78rem; font-weight: 700; letter-spacing: .08em;
+    color: var(--label); margin-bottom: .6rem;
+}
+.step h4 { font-size: 1rem; margin-bottom: .35rem; }
+.step p { font-size: .88rem; color: var(--text-body); line-height: 1.65; }
+
+/* Wintel-vs-baseline comparison bars (share of next-day fires caught) */
+.compare { display: grid; gap: .55rem; }
+.compare-head, .compare-row {
+    display: grid; grid-template-columns: 150px 1fr; gap: 1rem; align-items: center;
+}
+.compare-head { font-size: .78rem; color: var(--text-muted); font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
+.compare-row .region { font-size: .92rem; color: var(--text-strong); font-weight: 600; }
+.bars { display: grid; gap: .3rem; }
+.bar { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: .6rem; }
+.bar-track { height: 9px; background: var(--bar-track); border-radius: 99px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 99px; }
+.bar-model .bar-fill { background: var(--bar-model); }
+.bar-base  .bar-fill { background: var(--bar-base); }
+.bar-val { font-size: .8rem; font-variant-numeric: tabular-nums; min-width: 3.2em; text-align: right; }
+.bar-model .bar-val { color: var(--verify-text); font-weight: 700; }
+.bar-base  .bar-val { color: var(--text-muted); }
+.legend { display: flex; gap: 1.25rem; flex-wrap: wrap; font-size: .8rem; color: var(--text-muted); margin-top: .9rem; }
+.legend span::before {
+    content: ""; display: inline-block; width: 12px; height: 9px; border-radius: 99px;
+    margin-right: .4rem; vertical-align: middle;
+}
+.legend .lg-model::before { background: var(--bar-model); }
+.legend .lg-base::before  { background: var(--bar-base); }
+
+/* Paper figures sit on the same light plate as the dashboard */
+.figure-plate {
+    background: var(--figure-plate); border: 1px solid var(--figure-line);
+    border-radius: var(--radius-lg); padding: 1rem; box-shadow: var(--shadow-rest);
+}
+.figure-plate img { width: 100%; height: auto; display: block; }
+.figure-caption { font-size: .82rem; color: var(--figure-caption); line-height: 1.65; margin-top: .75rem; }
+
+/* Two-column evidence layout: bars left, figure right */
+.evidence-grid { display: grid; grid-template-columns: 1fr 1.25fr; gap: 2.5rem; align-items: start; }
+.evidence-grid h3 { margin-bottom: .35rem; }
+.evidence-grid .lead { color: var(--text-body); font-size: .92rem; line-height: 1.7; margin-bottom: 1.25rem; }
+
+/* Plain-language caveat panel ("what it is not") */
+.plain-panel {
+    background: var(--tint-panel); border: 1px solid var(--line);
+    border-radius: var(--radius-lg); padding: 1.75rem 2rem;
+}
+.plain-panel h3 { margin-bottom: .75rem; }
+.plain-panel ul { list-style: none; display: grid; gap: .6rem; }
+.plain-panel li { font-size: .92rem; color: var(--text-body); line-height: 1.65; padding-left: 1.2rem; position: relative; }
+.plain-panel li::before { content: "\2014"; position: absolute; left: 0; color: var(--label); }
+.plain-panel strong { color: var(--text-strong); font-weight: 600; }
+
+/* Two-up "what you get / what you bring" */
+.two-up { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.fineprint { font-size: .8rem; color: var(--text-faint); line-height: 1.6; margin-top: 1.25rem; }
+
+/* Status pill (live since …) used in page headers. Inline-block, NOT inline-flex:
+   a flex item's min-width:auto would stop the long label wrapping on a phone and
+   push the whole page wider than the viewport. */
+.status-pill-row { margin-bottom: 1rem; }
+.status-pill {
+    display: inline-block; max-width: 100%;
+    font-size: .8rem; font-weight: 600; color: var(--badge-text); line-height: 1.5;
+    background: var(--tint-badge); border-radius: 99px; padding: .3rem .8rem .3rem .7rem;
+}
+.status-pill::before {
+    content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%;
+    margin-right: .5rem; vertical-align: middle; position: relative; top: -1px;
+    background: var(--action-hot); box-shadow: 0 0 0 3px rgba(249,115,22,.22);
+}
+
+/* Product switcher — the two product pages link to each other under the header.
+   The nav has one "Products" item (the row is width-constrained), so this row
+   is how a visitor sees there are two. */
+.product-switch {
+    display: flex; gap: .5rem; flex-wrap: wrap;
+    margin-top: 1.5rem;
+}
+.product-switch a {
+    display: inline-flex; align-items: center; gap: .5rem;
+    padding: .5rem .95rem; border-radius: 99px; font-size: .88rem; font-weight: 600;
+    color: var(--text-strong); background: var(--surface-2); border: 1px solid var(--line);
+    transition: border-color .15s, background .15s;
+}
+.product-switch a:hover { border-color: var(--border-hover); background: var(--tint-nav); color: var(--heading); }
+.product-switch a.current { background: var(--tint-badge); border-color: var(--border-hover); color: var(--badge-text); }
+.product-switch .ps-num {
+    font-size: .72rem; font-weight: 800; letter-spacing: .06em; color: var(--label);
+}
+.product-switch a.current .ps-num { color: var(--badge-text); }
+
 /* ===== RESPONSIVE ===== */
 /* Between the mobile breakpoint and ~1080px the six-item nav and the live-text
    lockup compete for the same row. The lockup gives way — shrinking type is less
@@ -914,6 +1059,10 @@ h4 { font-size: 1.05rem; font-weight: 700; }
     .service-block { grid-template-columns: 1fr; gap: 2rem; }
     .service-block.reverse .service-content { order: 1; }
     .service-block.reverse .service-visual { order: 2; }
+    .callouts, .steps, .steps-5 { grid-template-columns: 1fr 1fr; }
+    .evidence-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .two-up { grid-template-columns: 1fr; }
+    .compare-head, .compare-row { grid-template-columns: 110px 1fr; gap: .75rem; }
 }
 /* Mobile nav takes over at 900px, not 768px. The six-item nav needs ~580px on its
    own; below ~865px it ran into the logo and clipped the Contact button — that was
@@ -952,6 +1101,8 @@ h4 { font-size: 1.05rem; font-weight: 700; }
     .hero-buttons .btn { justify-content: center; }
     .services-grid { grid-template-columns: 1fr; }
     .case-studies-grid { grid-template-columns: 1fr; }
+    .callouts, .steps, .steps-5 { grid-template-columns: 1fr; }
+    .plain-panel { padding: 1.25rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
