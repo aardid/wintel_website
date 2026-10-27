@@ -250,6 +250,12 @@ The pre-2026-08 Wildfire Intelligence site (light theme, 4 pages) is preserved i
   page with a dark band (case-studies), one with form fields (contact), and one with service-visual
   panels (what-we-do). Grep the live CSS (excluding part 3) for retired hue prefixes — a component
   left pointing at `--plum-*` or `--cyan-*` fails silently as a transparent/unset value.
+- **Testing layout (headless screenshots):** `msedge.exe --headless=new --screenshot=... --window-size=W,H`
+  works for desktop checks, but headless Edge on Windows enforces a minimum window width of roughly
+  500px, so a 390px capture renders the page at ~500px and crops the right edge — it looks like a
+  horizontal-overflow bug and is not one. Check the mobile layout at 700px (below the 900px nav
+  breakpoint, above the minimum) and test real phone widths in a browser's device mode. Verified
+  2026-10-27: the "clipped" 390px capture is identical on pages the change did not touch.
 - **Colour palette (Cloudbreak):** Navy 60% / white-slate 30% / blue + orange 10%.
 - **Backdrop:** Cloudbreak uses a full-page surf photo at 26% opacity. Wildfire Intelligence
   uses a fixed gradient instead (`body::before` / `body::after`) — two cool fields (cyan top-right,
@@ -288,11 +294,13 @@ The pre-2026-08 Wildfire Intelligence site (light theme, 4 pages) is preserved i
       centred and capped at 440px. A faint image *beside* the copy is atmosphere; *under* a narrow
       single column it is just poor contrast. The mask reset matters: in flow and centred, the
       horizontal fade lops the left side off the tree and the whole thing looks lopsided.
-  - **Mesh band** — the animated canvas, moved out of the hero to sit *below* the What We Do section
-    (`.mesh-band`), where it illustrates the capabilities instead of competing with the headline. It
-    keeps `id="hero-field"` because `js/main.js` binds to that id, and it sizes itself from its
-    parent's box, so `.mesh-band .hero-graphic` must keep an `aspect-ratio` (26/9 desktop, 16/9 small).
-    There must be exactly one `#hero-field` on the page.
+  - **Mesh canvas** — the animated topographic canvas is **no longer on the homepage**. The only
+    `<canvas id="hero-field">` on the site is in `what-we-do.html`, inside `.page-header-split` as a
+    real grid column (`.hero-visual`, in flow). `js/main.js` binds to that id and exits quietly on
+    pages without it, so every other page simply has no canvas. If it ever returns to the homepage,
+    give it its own band below the product sections rather than the hero, keep exactly one
+    `#hero-field` per page, and give its wrapper an `aspect-ratio` because the canvas sizes itself
+    from its parent's box.
 - **Mesh animation:** topographic mesh on `<canvas id="hero-field">`, driven by `js/main.js`.
   Height maps to colour so low ground reads benign and peaks read hot, and signal particles propagate
   across the grid. Two ramps are defined and one `THEME` constant picks between them — it **must match
@@ -342,9 +350,20 @@ website/
 
 ## Deployment
 
-Upload the relevant folder to any static host (Netlify, Cloudflare Pages, GitHub Pages, Vercel).
-No build step needed. Note that `cloudbreak/` sits inside the Wildfire Intelligence root — when
-deploying WI on its own, exclude `cloudbreak/`, `_old-site-backup/`, and `wildfire_intelligence/`.
+**Wildfire Intelligence is live on GitHub Pages from `main`** of `github.com/aardid/wintel_website`
+(the `CNAME` file carries `www.wildfireintelligence.co.nz`). Pushing `main` deploys; allow a minute
+or two, then hard-refresh — every page carries `?v=` cache-busters on the CSS/JS/image URLs, so bump
+them when those files change. No build step. `cloudbreak/`, `_old-site-backup/` and
+`wildfire_intelligence/` are published along with the root because Pages serves the whole repo;
+exclude them if the site ever moves to a host that deploys a folder.
+
+**Git on this UNC path.** The working copy lives on `U:\` (a `\\canterbury.ac.nz\universal` share),
+and git refuses it with "detected dubious ownership". Either add the exception git prints, or prefix
+every command with `git -c safe.directory='*'`. The HTML files are CRLF in the working copy and git
+warns "LF will be replaced by CRLF" on every touch; it is autocrlf noise, not a content change.
+
+**History.** The product repositioning (both product pages, homepage rebuild, new components,
+images) was committed and pushed on 2026-10-27 as `442fef9`.
 
 ## SEO
 
@@ -366,8 +385,14 @@ URL. Both homepages include JSON-LD Organization schema. Both sites have `robots
 - **Connect the contact form:** replace the mailto handler in `js/main.js` with a form action URL.
 - **Add a case study:** follow the `<article class="case-study">` pattern in `case-studies.html`
   (id anchor, tag, date, Problem / What We Built / Outcome, partners).
-- **Refresh the product numbers after a season:** see the list under "THE PRODUCT IS THE DAILY
-  IGNITION FORECAST" above; the bar widths in `ignition-forecast.html` are inline `style="width:N%"`
+- **Refresh the product numbers after a season:** see the list under "THE PRODUCTS ARE THE TWO
+  WINTEL DASHBOARDS" above; the bar widths in `ignition-forecast.html` are inline `style="width:N%"`
   and must match the printed values.
 - **Cloudbreak (`cloudbreak/`) was NOT updated with the product repositioning** — the Arauco
   project notes call that name obsolete. Port only if it is still deployed.
+
+## Known cosmetic issues (open)
+
+- `crew-deployment.html`: the `.steps-5` five-layer grid drops to two columns at the 900px step
+  (down to 480px, where it goes single-column), leaving "Out of reach" as a lone fifth card. Not broken; fix is a
+  `grid-column: span 2` on `:last-child` at that step, or a three-column intermediate step.
